@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
-import org.knowm.xchart.style.Theme;
 
 /**
  *
@@ -136,7 +135,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         try {
             signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
             
-            System.out.println("\nsignal.size(): " + signal.size());
+            System.out.println("\nРазмер фрагмента: " + signal.size());
             
         } catch (IOException exc) {
             System.err.println("Не удалось загрузить сигнал");
