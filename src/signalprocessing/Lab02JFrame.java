@@ -5,6 +5,10 @@
  */
 package signalprocessing;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 /**
  *
  * @author nekrasov
@@ -60,7 +64,15 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         
-        System.out.println("Hello!");
+        File soundFile = new File("sounds/the-rolling-stones.wav");
+        
+        SoundStream soundStream = new SoundStream();
+        
+        try {
+            List<Double> signal = soundStream.loadSignal(soundFile);
+        } catch (IOException exc) {
+            System.err.println("Не удалось загрузить сигнал");
+        }
         
     }//GEN-LAST:event_startButtonActionPerformed
 
