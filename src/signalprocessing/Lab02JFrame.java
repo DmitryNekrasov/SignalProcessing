@@ -5,9 +5,15 @@
  */
 package signalprocessing;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.style.Theme;
 
 /**
  *
@@ -15,11 +21,17 @@ import java.util.List;
  */
 public class Lab02JFrame extends javax.swing.JFrame {
 
+    XYChart signalChart, fftChart;
+    final String seriesName = "y(x)";
+    
     /**
      * Creates new form Lab02JFrame
      */
     public Lab02JFrame() {
         initComponents();
+        
+        signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        fftChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
     }
 
     /**
@@ -32,6 +44,10 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         startButton = new javax.swing.JButton();
+        signalPanel = new javax.swing.JPanel();
+        fftPanel = new javax.swing.JPanel();
+        fragmentSizeTextField = new javax.swing.JTextField();
+        fragmentSizeLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,21 +58,66 @@ public class Lab02JFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout signalPanelLayout = new javax.swing.GroupLayout(signalPanel);
+        signalPanel.setLayout(signalPanelLayout);
+        signalPanelLayout.setHorizontalGroup(
+            signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        signalPanelLayout.setVerticalGroup(
+            signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout fftPanelLayout = new javax.swing.GroupLayout(fftPanel);
+        fftPanel.setLayout(fftPanelLayout);
+        fftPanelLayout.setHorizontalGroup(
+            fftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        fftPanelLayout.setVerticalGroup(
+            fftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        fragmentSizeTextField.setText("131072");
+        fragmentSizeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fragmentSizeTextFieldActionPerformed(evt);
+            }
+        });
+
+        fragmentSizeLabel.setText("Размер фрагмента:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(signalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(startButton)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fragmentSizeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fragmentSizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1125, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(signalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fragmentSizeLabel)
+                    .addComponent(fragmentSizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(startButton)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -66,18 +127,39 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         File soundFile = new File("sounds/the-rolling-stones.wav");
         
+        int fragmentSize = Integer.parseInt(fragmentSizeTextField.getText());
+        
         SoundStream soundStream = new SoundStream();
         
+        List<Double> signal = null;
+        
         try {
-            List<Double> signal = soundStream.loadSignal(soundFile);
+            signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
             
-            System.out.println("signal.size(): " + signal.size());
+            System.out.println("\nsignal.size(): " + signal.size());
             
         } catch (IOException exc) {
             System.err.println("Не удалось загрузить сигнал");
         }
         
+        double duration = (double) fragmentSize / soundStream.getSampleRate();
+        System.out.println("Длительность фрагмента: " + duration + " сек.");
+        
+        List<Double> x = new ArrayList<>();
+        double step = duration / fragmentSize;
+        double current = 0;
+        for (int i = 0; i < fragmentSize; i++) {
+            x.add(current);
+            current += step;
+        }
+        
+        updateChart(signalChart, x, signal);
+        repaint();
     }//GEN-LAST:event_startButtonActionPerformed
+
+    private void fragmentSizeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fragmentSizeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fragmentSizeTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,7 +196,26 @@ public class Lab02JFrame extends javax.swing.JFrame {
         });
     }
 
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        
+        Graphics2D signalPanelGraphics = (Graphics2D) signalPanel.getGraphics();
+        signalChart.paint(signalPanelGraphics, signalPanel.getWidth(), signalPanel.getHeight());
+        
+        Graphics2D fftPanelGraphics = (Graphics2D) fftPanel.getGraphics();
+        fftChart.paint(fftPanelGraphics, fftPanel.getWidth(), fftPanel.getHeight());
+    }
+    
+    void updateChart(XYChart chart, List<Double> x, List<Double> y) {
+        chart.updateXYSeries(seriesName, x, y, null);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel fftPanel;
+    private javax.swing.JLabel fragmentSizeLabel;
+    private javax.swing.JTextField fragmentSizeTextField;
+    private javax.swing.JPanel signalPanel;
     private javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
 }

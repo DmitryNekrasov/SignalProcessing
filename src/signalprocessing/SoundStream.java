@@ -13,7 +13,18 @@ public class SoundStream {
     
     private byte[] head = new byte[44];
     
-    public List<Double> loadSignal(File file) throws IOException {
+    private int sampleRate;
+    private int bytePerSecond;
+    
+    public int getSampleRate() {
+        return sampleRate;
+    }
+    
+    public int getBytePerSecond() {
+        return bytePerSecond;
+    }
+    
+    public List<Double> loadSignal(File file, int start, int fragmentSize) throws IOException {
         
         DataInputStream stream = new DataInputStream(new FileInputStream(file));
         
@@ -54,11 +65,11 @@ public class SoundStream {
         System.out.println();
         
         headStream.read(intBuffer);
-        int sampleRate = intFromBytes(intBuffer);
+        sampleRate = intFromBytes(intBuffer);
         System.out.println("Частота дискретизации: " + sampleRate);
         
         headStream.read(intBuffer);
-        int bytePerSecond = intFromBytes(intBuffer);
+        bytePerSecond = intFromBytes(intBuffer);
         System.out.println("Число байт в секунду: " + bytePerSecond);
         
         for (int i = 0; i < 4; i++) {
@@ -101,7 +112,11 @@ public class SoundStream {
         
         List<Double> signal = new ArrayList<>();
         byte[] shortBuffer = new byte[2];
-        for (int i = 0, ei = dataSize / 2; i < ei; i++) {
+        for (int i = 0; i < start; i++) {
+            stream.read(shortBuffer);
+            dataSize -= 2;
+        }
+        for (int i = 0, ei = Math.min(dataSize / 2, fragmentSize); i < ei; i++) {
             stream.read(shortBuffer);
             signal.add((double) shortFromBytes(shortBuffer));
         }
