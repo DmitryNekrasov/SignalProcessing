@@ -15,7 +15,8 @@ public class SignalProcessing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Lab02JFrame lab02Frame = new Lab02JFrame();
+        lab02Frame.setVisible(true);
     }
     
 }
