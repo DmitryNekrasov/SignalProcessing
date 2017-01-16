@@ -141,18 +141,13 @@ public class Lab02JFrame extends javax.swing.JFrame {
             System.err.println("Не удалось загрузить сигнал");
         }
         
-        double duration = (double) fragmentSize / soundStream.getSampleRate();
-        System.out.println("Длительность фрагмента: " + duration + " сек.");
+        updateSignalChart(signal, soundStream.getSampleRate());
         
-        List<Double> x = new ArrayList<>();
-        double step = duration / fragmentSize;
-        double current = 0;
-        for (int i = 0; i < fragmentSize; i++) {
-            x.add(current);
-            current += step;
-        }
+        FastFourierTransform fastFourierTransform = new FastFourierTransform(signal);
+        List<Double> fftModule = fastFourierTransform.getModuleList();
         
-        updateChart(signalChart, x, signal);
+        updateFftChart(fftModule);
+        
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -204,6 +199,29 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         Graphics2D fftPanelGraphics = (Graphics2D) fftPanel.getGraphics();
         fftChart.paint(fftPanelGraphics, fftPanel.getWidth(), fftPanel.getHeight());
+    }
+    
+    void updateSignalChart(List<Double> signal, int sampleRate) {
+        int fragmentSize = signal.size();
+        double duration = (double) fragmentSize / sampleRate;
+        System.out.println("Длительность фрагмента: " + duration + " сек.");
+        
+        List<Double> x = new ArrayList<>();
+        double step = duration / fragmentSize;
+        for (int i = 0; i < fragmentSize; i++) {
+            x.add(i * step);
+        }
+        
+        updateChart(signalChart, x, signal);
+    }
+    
+    void updateFftChart(List<Double> signal) {
+        List<Double> x = new ArrayList<>();
+        for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
+            x.add((double) i);
+        }
+        
+        updateChart(fftChart, x, signal.subList(0, signal.size() / 2));
     }
     
     void updateChart(XYChart chart, List<Double> x, List<Double> y) {
