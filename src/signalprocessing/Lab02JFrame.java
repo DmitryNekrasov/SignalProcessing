@@ -70,6 +70,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         try {
             List<Double> signal = soundStream.loadSignal(soundFile);
+            
+            System.out.println("signal.size(): " + signal.size());
+            
         } catch (IOException exc) {
             System.err.println("Не удалось загрузить сигнал");
         }
