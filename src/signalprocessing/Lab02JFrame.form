@@ -27,39 +27,54 @@
           <Component id="fftPanel" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="signalLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="signalComboBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <Component id="signalComboBox" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="fragmentSizeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="NLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="NTextField" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="TLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="TTextField" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="ALabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ATextField" min="-2" pref="58" max="-2" attributes="0"/>
-                              </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="NLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="NTextField" max="32767" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="TLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="TTextField" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ALabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ATextField" min="-2" pref="58" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="startButton" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fragmentSizeTextField" min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="startButton" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="fragmentSizeLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="fragmentSizeTextField" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="1131" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="minLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="maxLabel" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="maxTextField" pref="100" max="32767" attributes="0"/>
+                      <Component id="minTextField" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="filterComboBox" min="-2" pref="120" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="930" max="-2" attributes="0"/>
           </Group>
           <Component id="iftPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -76,16 +91,22 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="signalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="signalComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="filterLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="filterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="fragmentSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="fragmentSizeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ALabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ATextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="maxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="maxTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -97,7 +118,7 @@
                   <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
               <Component id="startButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -107,7 +128,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="startButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Start"/>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x442;&#x430;&#x440;&#x442;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="startButtonActionPerformed"/>
@@ -224,5 +245,48 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JLabel" name="filterLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x43b;&#x44c;&#x442;&#x440;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="filterComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="-"/>
+            <StringItem index="1" value="&#x41d;&#x438;&#x436;&#x43d;&#x438;&#x445; &#x447;&#x430;&#x441;&#x442;&#x43e;&#x442;"/>
+            <StringItem index="2" value="&#x412;&#x435;&#x440;&#x445;&#x43d;&#x438;&#x445; &#x447;&#x430;&#x441;&#x442;&#x43e;&#x442;"/>
+            <StringItem index="3" value="&#x420;&#x435;&#x436;&#x435;&#x43a;&#x442;&#x43e;&#x440;&#x43d;&#x44b;&#x439;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterComboBoxActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="minLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="min:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="minTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="10"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="maxLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="max:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="maxTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="15"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

@@ -16,6 +16,7 @@ public class SignalProcessing {
      */
     public static void main(String[] args) {
         Lab02JFrame lab02Frame = new Lab02JFrame();
+        lab02Frame.setTitle("ЛР №2. Основные понятия линейных фильтров. КИХ-фильтры.");
         lab02Frame.setVisible(true);
     }
     
