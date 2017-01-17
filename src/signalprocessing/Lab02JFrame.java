@@ -113,7 +113,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         signalLabel.setText("Сигнал:");
 
-        signalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Песня", "Речь", "Музыка", "Пилообразный" }));
+        signalComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Музыка", "Песня", "Речь", "Пилообразный" }));
         signalComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signalComboBoxActionPerformed(evt);
@@ -255,7 +255,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
         double sampleRate = 1;
         SoundStream soundStream = null;
         
-        if (signalComboBox.getSelectedIndex() == SAW_INDEX) {
+        final int index = signalComboBox.getSelectedIndex();
+        
+        if (index == SAW_INDEX) {
             double A = Double.parseDouble(ATextField.getText());
             double T = Double.parseDouble(TTextField.getText());
             int N = Integer.parseInt(NTextField.getText());
@@ -265,12 +267,29 @@ public class Lab02JFrame extends javax.swing.JFrame {
             
             sampleRate = N / T;
         } else {
-            File soundFile = new File("sounds/the-rolling-stones.wav");
+            File soundFile;
+            int start;
+            
+            switch (index) {
+                case 0:
+                    soundFile = new File("sounds/the-rolling-stones.wav");
+                    start = 0;
+                    break;
+                case 1:
+                    soundFile = new File("sounds/song.wav");
+                    start = 0;
+                    break;
+                default:
+                    soundFile = new File("sounds/speech.wav");
+                    start = 32_000;
+                    break;
+            }
+            
             int fragmentSize = Integer.parseInt(fragmentSizeTextField.getText());
             soundStream = new SoundStream();
             
             try {
-                signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
+                signal = soundStream.loadSignal(soundFile, start, fragmentSize);
                 System.out.println("\nРазмер фрагмента: " + signal.size());
             } catch (IOException ex) {
                 System.err.println("Не удалось загрузить сигнал");
