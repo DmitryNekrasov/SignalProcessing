@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class SoundStream {
     
-    private byte[] head = new byte[44];
+    private final byte[] head = new byte[44];
     
     private int sampleRate;
     private int bytePerSecond;
