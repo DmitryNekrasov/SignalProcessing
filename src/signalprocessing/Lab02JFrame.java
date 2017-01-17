@@ -20,6 +20,8 @@ import org.knowm.xchart.XYChart;
  */
 public class Lab02JFrame extends javax.swing.JFrame {
 
+    final int SAW_INDEX = 3;
+    
     XYChart signalChart, fftChart;
     final String seriesName = "y(x)";
     
@@ -115,7 +117,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         NLabel.setText("N:");
 
-        NTextField.setText("80");
+        NTextField.setText("1024");
 
         TTextField.setText("5");
 
@@ -189,24 +191,34 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         
-        File soundFile = new File("sounds/the-rolling-stones.wav");
-        
-        int fragmentSize = Integer.parseInt(fragmentSizeTextField.getText());
-        
-        SoundStream soundStream = new SoundStream();
-        
         List<Double> signal = null;
+        double sampleRate = 1;
         
-        try {
-            signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
+        if (signalComboBox.getSelectedIndex() == SAW_INDEX) {
+            double A = Double.parseDouble(ATextField.getText());
+            double T = Double.parseDouble(TTextField.getText());
+            int N = Integer.parseInt(NTextField.getText());
             
-            System.out.println("\nРазмер фрагмента: " + signal.size());
+            StandartSignal sawSignal = new SawSignal(A, T, N);
+            signal = sawSignal.getSignal();
             
-        } catch (IOException exc) {
-            System.err.println("Не удалось загрузить сигнал");
+            sampleRate = N / T;
+        } else {
+            File soundFile = new File("sounds/the-rolling-stones.wav");
+            int fragmentSize = Integer.parseInt(fragmentSizeTextField.getText());
+            SoundStream soundStream = new SoundStream();
+            
+            try {
+                signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
+                System.out.println("\nРазмер фрагмента: " + signal.size());
+            } catch (IOException exc) {
+                System.err.println("Не удалось загрузить сигнал");
+            }
+            
+            sampleRate = soundStream.getSampleRate();
         }
         
-        updateSignalChart(signal, soundStream.getSampleRate());
+        updateSignalChart(signal, sampleRate);
         
         FastFourierTransform fastFourierTransform = new FastFourierTransform(signal);
         List<Double> fftModule = fastFourierTransform.getModuleList();
@@ -221,7 +233,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_fragmentSizeTextFieldActionPerformed
 
     private void signalComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signalComboBoxActionPerformed
-        boolean isSaw = signalComboBox.getSelectedIndex() == 3;
+        boolean isSaw = signalComboBox.getSelectedIndex() == SAW_INDEX;
         setSawParamsEnabled(isSaw);
         setSoundParamsEnabled(!isSaw);
     }//GEN-LAST:event_signalComboBoxActionPerformed
@@ -237,9 +249,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
         fftChart.paint(fftPanelGraphics, fftPanel.getWidth(), fftPanel.getHeight());
     }
     
-    void updateSignalChart(List<Double> signal, int sampleRate) {
+    void updateSignalChart(List<Double> signal, double sampleRate) {
         int fragmentSize = signal.size();
-        double duration = (double) fragmentSize / sampleRate;
+        double duration = fragmentSize / sampleRate;
         System.out.println("Длительность фрагмента: " + duration + " сек.");
         
         List<Double> x = new ArrayList<>();
