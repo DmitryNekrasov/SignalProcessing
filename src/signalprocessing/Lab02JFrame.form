@@ -222,7 +222,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="NTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="1024"/>
+        <Property name="text" type="java.lang.String" value="65536"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TTextField">
@@ -275,7 +275,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="minTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="10"/>
+        <Property name="text" type="java.lang.String" value="100"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="maxLabel">
@@ -285,7 +285,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="maxTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="15"/>
+        <Property name="text" type="java.lang.String" value="5000"/>
       </Properties>
     </Component>
   </SubComponents>

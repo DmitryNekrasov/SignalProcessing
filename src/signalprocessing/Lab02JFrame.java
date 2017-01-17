@@ -128,7 +128,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         NLabel.setText("N:");
 
-        NTextField.setText("1024");
+        NTextField.setText("65536");
 
         TTextField.setText("5");
 
@@ -154,11 +154,11 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         minLabel.setText("min:");
 
-        minTextField.setText("10");
+        minTextField.setText("100");
 
         maxLabel.setText("max:");
 
-        maxTextField.setText("15");
+        maxTextField.setText("5000");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
