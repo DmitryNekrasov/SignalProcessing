@@ -2,7 +2,6 @@ package signalprocessing;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -124,12 +123,55 @@ public class SoundStream {
         return signal;
     }
     
-    int intFromBytes(byte[] buffer) {
+    public void saveSignal(List<Double> signal, File file) throws IOException {
+        int dataSize = signal.size() * 2;
+        byte[] buffer = intToBytes(dataSize + 36);
+        head[4] = buffer[0];
+        head[5] = buffer[1];
+        head[6] = buffer[2];
+        head[7] = buffer[3];
+        
+        head[36] = 'd';
+        head[37] = 'a';
+        head[38] = 't';
+        head[39] = 'a';
+        
+        buffer = intToBytes(dataSize);
+        head[40] = buffer[0];
+        head[41] = buffer[1];
+        head[42] = buffer[2];
+        head[43] = buffer[3];
+        
+        FileOutputStream writer = new FileOutputStream(file);
+        writer.write(head);
+        for (double value : signal) {
+            short data = (short) value;
+            byte[] shortBuffer = shortToBytes(data);
+            writer.write(shortBuffer);
+        }
+    }
+    
+    private int intFromBytes(byte[] buffer) {
         return (buffer[0] & 0xff) | ((buffer[1] & 0xff) << 8) | ((buffer[2] & 0xff) << 16) | ((buffer[3] & 0xff) << 24);
     }
     
-    short shortFromBytes(byte[] buffer) {
+    private short shortFromBytes(byte[] buffer) {
         return (short) ((buffer[0] & 0xff) | ((buffer[1] & 0xff) << 8));
     }
     
+    private byte[] intToBytes(int data) {
+        byte[] buffer = new byte[4];
+        buffer[0] = (byte) (data & 0xff);
+        buffer[1] = (byte) ((data >> 8) & 0xff);
+        buffer[2] = (byte) ((data >> 16) & 0xff);
+        buffer[3] = (byte) ((data >> 24) & 0xff);
+        return buffer;
+    }
+    
+    private byte[] shortToBytes(short data) {
+        byte[] buffer = new byte[2];
+        buffer[0] = (byte) (data & 0xff);
+        buffer[1] = (byte) ((data >> 8) & 0xff);
+        return buffer;
+    }
 }

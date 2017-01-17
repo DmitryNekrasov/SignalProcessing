@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
 
@@ -20,6 +22,8 @@ import org.knowm.xchart.XYChart;
  */
 public class Lab02JFrame extends javax.swing.JFrame {
 
+    private final String filePath = "c:\\Users\\nekrasov\\Desktop\\";
+    
     final int SAW_INDEX = 3;
     
     XYChart signalChart, fftChart, iftChart;
@@ -251,6 +255,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         List<Double> signal = null;
         double sampleRate = 1;
+        SoundStream soundStream = null;
         
         if (signalComboBox.getSelectedIndex() == SAW_INDEX) {
             double A = Double.parseDouble(ATextField.getText());
@@ -264,12 +269,12 @@ public class Lab02JFrame extends javax.swing.JFrame {
         } else {
             File soundFile = new File("sounds/the-rolling-stones.wav");
             int fragmentSize = Integer.parseInt(fragmentSizeTextField.getText());
-            SoundStream soundStream = new SoundStream();
+            soundStream = new SoundStream();
             
             try {
                 signal = soundStream.loadSignal(soundFile, 0, fragmentSize);
                 System.out.println("\nРазмер фрагмента: " + signal.size());
-            } catch (IOException exc) {
+            } catch (IOException ex) {
                 System.err.println("Не удалось загрузить сигнал");
             }
             
@@ -306,6 +311,10 @@ public class Lab02JFrame extends javax.swing.JFrame {
         updateSignalChart(iftChart, ift, sampleRate);
         
         repaint();
+        
+        if (signalComboBox.getSelectedIndex() != SAW_INDEX) {
+            saveSignal(soundStream, ift, "ift_output.wav");
+        }
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void fragmentSizeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fragmentSizeTextFieldActionPerformed
@@ -416,6 +425,15 @@ public class Lab02JFrame extends javax.swing.JFrame {
     void setFilterMaxEnabled(boolean value) {
         maxLabel.setEnabled(value);
         maxTextField.setEnabled(value);
+    }
+    
+    void saveSignal(SoundStream stream, List<Double> signal, String fileName) {
+        File file = new File(filePath + fileName);
+        try {
+            stream.saveSignal(signal, file);
+        } catch (IOException ex) {
+            System.err.println("Не удалось сохранить сигнал");
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
