@@ -30,8 +30,8 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="signalLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="signalComboBox" pref="125" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="signalComboBox" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -55,12 +55,13 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fragmentSizeTextField" max="32767" attributes="0"/>
+                      <Component id="fragmentSizeTextField" min="-2" pref="55" max="-2" attributes="0"/>
                   </Group>
                   <Component id="startButton" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="1121" max="32767" attributes="0"/>
+              <EmptySpace pref="1131" max="32767" attributes="0"/>
           </Group>
+          <Component id="iftPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -69,6 +70,8 @@
               <Component id="signalPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="fftPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="iftPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="signalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -94,7 +97,7 @@
                   <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="72" max="32767" attributes="0"/>
+              <EmptySpace pref="116" max="32767" attributes="0"/>
               <Component id="startButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -120,7 +123,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -135,7 +138,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -206,5 +209,20 @@
         <Property name="text" type="java.lang.String" value="5"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JPanel" name="iftPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="150" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </SubComponents>
 </Form>

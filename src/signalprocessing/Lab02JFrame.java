@@ -22,7 +22,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
     final int SAW_INDEX = 3;
     
-    XYChart signalChart, fftChart;
+    XYChart signalChart, fftChart, iftChart;
     final String seriesName = "y(x)";
     
     /**
@@ -33,6 +33,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         fftChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        iftChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         
         setSawParamsEnabled(false);
     }
@@ -59,6 +60,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         NLabel = new javax.swing.JLabel();
         NTextField = new javax.swing.JTextField();
         TTextField = new javax.swing.JTextField();
+        iftPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,7 +79,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         );
         signalPanelLayout.setVerticalGroup(
             signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout fftPanelLayout = new javax.swing.GroupLayout(fftPanel);
@@ -88,7 +90,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         );
         fftPanelLayout.setVerticalGroup(
             fftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         fragmentSizeTextField.setText("131072");
@@ -121,6 +123,17 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         TTextField.setText("5");
 
+        javax.swing.GroupLayout iftPanelLayout = new javax.swing.GroupLayout(iftPanel);
+        iftPanel.setLayout(iftPanelLayout);
+        iftPanelLayout.setHorizontalGroup(
+            iftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        iftPanelLayout.setVerticalGroup(
+            iftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,8 +145,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(signalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signalComboBox, 0, 125, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(signalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(fragmentSizeLabel, javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,9 +164,10 @@ public class Lab02JFrame extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(ATextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fragmentSizeTextField))
+                        .addComponent(fragmentSizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1121, Short.MAX_VALUE))
+                .addContainerGap(1131, Short.MAX_VALUE))
+            .addComponent(iftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,6 +175,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addComponent(signalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(iftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalLabel)
@@ -181,7 +197,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NLabel)
                     .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
                 .addComponent(startButton)
                 .addContainerGap())
         );
@@ -218,12 +234,15 @@ public class Lab02JFrame extends javax.swing.JFrame {
             sampleRate = soundStream.getSampleRate();
         }
         
-        updateSignalChart(signal, sampleRate);
+        updateSignalChart(signalChart, signal, sampleRate);
         
         FastFourierTransform fastFourierTransform = new FastFourierTransform(signal);
-        List<Double> fftModule = fastFourierTransform.getModuleList();
         
+        List<Double> fftModule = fastFourierTransform.getModuleList();
         updateFftChart(fftModule);
+        
+        List<Double> ift = fastFourierTransform.getIftList();
+        updateSignalChart(iftChart, ift, sampleRate);
         
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
@@ -247,12 +266,14 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         Graphics2D fftPanelGraphics = (Graphics2D) fftPanel.getGraphics();
         fftChart.paint(fftPanelGraphics, fftPanel.getWidth(), fftPanel.getHeight());
+        
+        Graphics2D iftPanelGraphics = (Graphics2D) iftPanel.getGraphics();
+        iftChart.paint(iftPanelGraphics, iftPanel.getWidth(), iftPanel.getHeight());
     }
     
-    void updateSignalChart(List<Double> signal, double sampleRate) {
+    void updateSignalChart(XYChart chart, List<Double> signal, double sampleRate) {
         int fragmentSize = signal.size();
         double duration = fragmentSize / sampleRate;
-        System.out.println("Длительность фрагмента: " + duration + " сек.");
         
         List<Double> x = new ArrayList<>();
         double step = duration / fragmentSize;
@@ -260,7 +281,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
             x.add(i * step);
         }
         
-        updateChart(signalChart, x, signal);
+        updateChart(chart, x, signal);
     }
     
     void updateFftChart(List<Double> signal) {
@@ -312,6 +333,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private javax.swing.JPanel fftPanel;
     private javax.swing.JLabel fragmentSizeLabel;
     private javax.swing.JTextField fragmentSizeTextField;
+    private javax.swing.JPanel iftPanel;
     private javax.swing.JComboBox<String> signalComboBox;
     private javax.swing.JLabel signalLabel;
     private javax.swing.JPanel signalPanel;

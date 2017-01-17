@@ -15,12 +15,13 @@ import org.apache.commons.math3.complex.Complex;
  */
 public class FastFourierTransform {
     
-    private Complex[] result;
+    private Complex[] fftResult, iftResult;
     
     public FastFourierTransform(List<Double> signal) {
         if (isPow2(signal.size())) {
             Complex[] x = generateComplexArray(signal);
-            result = divideBySize(fft(x));
+            fftResult = divideBySize(fft(x, false));
+            iftResult = multiplyBySize(fft(fftResult, true));
         } else {
             throw new RuntimeException("Размер сигнала не является степенью двойки");
         }
@@ -28,14 +29,20 @@ public class FastFourierTransform {
     
     public List<Double> getModuleList() {
         List<Double> module = new ArrayList<>();
-        
-        for (Complex value : result) {
+        for (Complex value : fftResult) {
             double x = value.getReal();
             double y = value.getImaginary();
             module.add(Math.sqrt(x * x + y * y));
         }
-        
         return module;
+    }
+    
+    public List<Double> getIftList() {
+        List<Double> ret = new ArrayList<>();
+        for (Complex value : iftResult) {
+            ret.add( value.getReal());
+        }
+        return ret;
     }
     
     private Complex[] generateComplexArray(List<Double> signal) {
@@ -55,13 +62,21 @@ public class FastFourierTransform {
         return X;
     }
     
-    private Complex[] fft(Complex[] x) {
+    private Complex[] multiplyBySize(Complex[] x) {
+        Complex[] X = new Complex[x.length];
+        for (int i = 0, ei = x.length; i < ei; i++) {
+            X[i] = x[i].multiply((double) ei);
+        }
+        return X;
+    }
+    
+    private Complex[] fft(Complex[] x, boolean invert) {
         Complex[] X;
         int n = x.length;
         if (n == 2) {
             X = new Complex[2];
-            X[0] = x[0].add(x[1]);
-            X[1] = x[0].subtract(x[1]);
+            X[0] = x[0].add(x[1]).divide(invert ? 2 : 1);
+            X[1] = x[0].subtract(x[1]).divide(invert ? 2 : 1);
         } else {
             Complex[] xEven = new Complex[n / 2];
             Complex[] xOdd = new Complex[n / 2];
@@ -69,23 +84,27 @@ public class FastFourierTransform {
                 xEven[i] = x[2 * i];
                 xOdd[i] = x[2 * i + 1];
             }
-            Complex[] XEven = fft(xEven);
-            Complex[] XOdd = fft(xOdd);
+            Complex[] XEven = fft(xEven, invert);
+            Complex[] XOdd = fft(xOdd, invert);
             X = new Complex[n];
             for (int i = 0; i < n / 2; i++) {
-                X[i] = XEven[i].add(getW(i, n).multiply(XOdd[i]));
-                X[i + n / 2] = XEven[i].subtract(getW(i, n).multiply(XOdd[i]));
+                X[i] = XEven[i].add(getW(i, n, invert).multiply(XOdd[i]));
+                X[i + n / 2] = XEven[i].subtract(getW(i, n, invert).multiply(XOdd[i]));
+                if (invert) {
+                    X[i] = X[i].divide(2);
+                    X[i + n / 2] = X[i + n / 2].divide(2);
+                }
             }
         }
         
         return X;
     }
     
-    private Complex getW(int k, int n) {
+    private Complex getW(int k, int n, boolean invert) {
         if (k % n == 0) {
             return new Complex(1);
         }
-        double arg = -2 * Math.PI * k / n;
+        double arg = 2 * Math.PI * k / n * (invert ? -1 : 1);
         return new Complex(Math.cos(arg), Math.sin(arg));
     }
     
