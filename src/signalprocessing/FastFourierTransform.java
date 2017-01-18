@@ -20,7 +20,7 @@ public class FastFourierTransform {
     public FastFourierTransform(List<Double> signal) {
         if (isPow2(signal.size())) {
             Complex[] x = generateComplexArray(signal);
-            fftResult = divideBySize(fft(x, false));
+            fftResult = fft(x, false);
         } else {
             throw new RuntimeException("Размер сигнала не является степенью двойки");
         }
@@ -37,7 +37,7 @@ public class FastFourierTransform {
     }
     
     public List<Double> getIftList() {
-        iftResult = multiplyBySize(fft(fftResult, true));
+        iftResult = fft(fftResult, true);
         List<Double> ret = new ArrayList<>();
         for (Complex value : iftResult) {
             ret.add( value.getReal());

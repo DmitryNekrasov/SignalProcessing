@@ -7,6 +7,8 @@ package signalprocessing;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
 
@@ -18,7 +20,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
 
     final String seriesName = "y(x)";
     
-    XYChart fr1Chart, fr2Chart, resultChart;
+    XYChart irChart, fr1Chart, fr2Chart, resultChart;
     
     /**
      * Creates new form Lab02SupportingJFrame
@@ -26,6 +28,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
     public Lab02SupportingJFrame() {
         initComponents();
         
+        irChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         fr1Chart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         fr2Chart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
@@ -43,6 +46,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         fr1Panel = new javax.swing.JPanel();
         fr2Panel = new javax.swing.JPanel();
         resultPanel = new javax.swing.JPanel();
+        irPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +83,17 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
             .addGap(0, 150, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout irPanelLayout = new javax.swing.GroupLayout(irPanel);
+        irPanel.setLayout(irPanelLayout);
+        irPanelLayout.setHorizontalGroup(
+            irPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        irPanelLayout.setVerticalGroup(
+            irPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,10 +101,13 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
             .addComponent(fr1Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(fr2Panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(irPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(irPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fr1Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fr2Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -100,10 +118,45 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void makeAll(int N, double fc) {
+        makeFilter(N, fc);
+    }
+    
+    void makeFilter(int N, double fc) {
+        Filter filter = new Filter(N - 1, fc);
+        List<Double> impulseResponse = filter.getImpulseResponse();
+        
+        FastFourierTransform fft = new FastFourierTransform(impulseResponse);
+        List<Double> frequencyResponse = fft.getModuleList();
+        
+        updateIrChart(impulseResponse);
+        updateFr1Chart(frequencyResponse);
+        repaint();
+    }
+    
+    void updateIrChart(List<Double> signal) {
+        List<Double> x = new ArrayList<>();
+        for (int i = 0, ei = signal.size(); i < ei; i++) {
+            x.add((double) i);
+        }
+        Common.updateChart(irChart, x, signal, seriesName);
+    }
+    
+    void updateFr1Chart(List<Double> signal) {
+        List<Double> x = new ArrayList<>();
+        for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
+            x.add((double) i);
+        }
+        Common.updateChart(fr1Chart, x, signal.subList(0, signal.size() / 2), seriesName);
+    }
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
+        Graphics2D irPanelGraphics = (Graphics2D) irPanel.getGraphics();
+        irChart.paint(irPanelGraphics, irPanel.getWidth(), irPanel.getHeight());
+        
         Graphics2D fr1PanelGraphics = (Graphics2D) fr1Panel.getGraphics();
         fr1Chart.paint(fr1PanelGraphics, fr1Panel.getWidth(), fr1Panel.getHeight());
         
@@ -117,6 +170,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel fr1Panel;
     private javax.swing.JPanel fr2Panel;
+    private javax.swing.JPanel irPanel;
     private javax.swing.JPanel resultPanel;
     // End of variables declaration//GEN-END:variables
 }

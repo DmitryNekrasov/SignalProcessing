@@ -5,6 +5,10 @@
  */
 package signalprocessing;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author nekrasov
@@ -13,23 +17,32 @@ public class Filter {
     
     private int N;
     private double fc;
-    private double[] h;
+    private List<Double> impulseResponse;
+    private List<Double> transformation;
+    private List<Double> frequencyResponse;
+    private List<Double> logFrequencyResponse;
 
     public Filter(int N, double fc) {
         this.N = N;
         this.fc = fc;
-        initH();
+        initImpulseResponse();
     }
     
-    private void initH() {
-        h = new double[N];
+    public List<Double> getImpulseResponse() {
+        return impulseResponse;
+    }
+    
+    private void initImpulseResponse() {
+        impulseResponse = new ArrayList<>();
         int M = N - 1;
         for (int i = 0; i < N; i++) {
+            double value;
             if (i == M / 2) {
-                h[i] = 2 * fc;
+                value = 2 * fc;
             } else {
-                h[i] = Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
+                value = Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
             }
+            impulseResponse.add(value);
         }
     }
 }

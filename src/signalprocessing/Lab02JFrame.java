@@ -27,6 +27,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
     XYChart signalChart, fftChart, iftChart;
     final String seriesName = "y(x)";
     
+    Lab02SupportingJFrame supportingFrame;
+    
     /**
      * Creates new form Lab02JFrame
      */
@@ -40,7 +42,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         setSawParamsEnabled(false);
         setFilterEnabled(false);
         
-        Lab02SupportingJFrame supportingFrame = new Lab02SupportingJFrame();
+        supportingFrame = new Lab02SupportingJFrame();
         supportingFrame.setVisible(true);
         
         System.err.println(getWidth() + " " + getHeight());
@@ -75,6 +77,11 @@ public class Lab02JFrame extends javax.swing.JFrame {
         minTextField = new javax.swing.JTextField();
         maxLabel = new javax.swing.JLabel();
         maxTextField = new javax.swing.JTextField();
+        filterButton = new javax.swing.JButton();
+        filterNLabel = new javax.swing.JLabel();
+        filterNTextField = new javax.swing.JTextField();
+        filterFcLabel = new javax.swing.JLabel();
+        filterFcTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +172,26 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         maxTextField.setText("5000");
 
+        filterButton.setText("jButton1");
+        filterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterButtonActionPerformed(evt);
+            }
+        });
+
+        filterNLabel.setText("N:");
+
+        filterNTextField.setText("257");
+
+        filterFcLabel.setText("fc:");
+
+        filterFcTextField.setText("0.04535");
+        filterFcTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterFcTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,11 +232,22 @@ public class Lab02JFrame extends javax.swing.JFrame {
                     .addComponent(maxLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(maxTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                        .addComponent(minTextField))
-                    .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(930, 930, 930))
+                    .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(filterButton)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(42, 42, 42)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(filterFcLabel)
+                                .addComponent(filterNLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(filterNTextField)
+                                .addComponent(filterFcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))))
+                .addGap(812, 812, 812))
             .addComponent(iftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -225,13 +263,17 @@ public class Lab02JFrame extends javax.swing.JFrame {
                     .addComponent(signalLabel)
                     .addComponent(signalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filterLabel)
-                    .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterNLabel)
+                    .addComponent(filterNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fragmentSizeLabel)
                     .addComponent(fragmentSizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(minLabel)
-                    .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterFcLabel)
+                    .addComponent(filterFcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ALabel)
@@ -247,7 +289,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
                     .addComponent(NLabel)
                     .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(startButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startButton)
+                    .addComponent(filterButton))
                 .addContainerGap())
         );
 
@@ -368,6 +412,18 @@ public class Lab02JFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_filterComboBoxActionPerformed
 
+    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
+        
+        int N = Integer.parseInt(filterNTextField.getText());
+        double fc = Double.parseDouble(filterFcTextField.getText());
+        
+        supportingFrame.makeAll(N, fc);
+    }//GEN-LAST:event_filterButtonActionPerformed
+
+    private void filterFcTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFcTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterFcTextFieldActionPerformed
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -392,7 +448,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
             x.add(i * step);
         }
         
-        updateChart(chart, x, signal);
+        Common.updateChart(chart, x, signal, seriesName);
     }
     
     void updateFftChart(List<Double> signal) {
@@ -401,11 +457,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
             x.add((double) i);
         }
         
-        updateChart(fftChart, x, signal.subList(0, signal.size() / 2));
-    }
-    
-    void updateChart(XYChart chart, List<Double> x, List<Double> y) {
-        chart.updateXYSeries(seriesName, x, y, null);
+        Common.updateChart(fftChart, x, signal.subList(0, signal.size() / 2), seriesName);
     }
     
     private void setSoundParamsEnabled(boolean value) {
@@ -466,8 +518,13 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TLabel;
     private javax.swing.JTextField TTextField;
     private javax.swing.JPanel fftPanel;
+    private javax.swing.JButton filterButton;
     private javax.swing.JComboBox<String> filterComboBox;
+    private javax.swing.JLabel filterFcLabel;
+    private javax.swing.JTextField filterFcTextField;
     private javax.swing.JLabel filterLabel;
+    private javax.swing.JLabel filterNLabel;
+    private javax.swing.JTextField filterNTextField;
     private javax.swing.JLabel fragmentSizeLabel;
     private javax.swing.JTextField fragmentSizeTextField;
     private javax.swing.JPanel iftPanel;
