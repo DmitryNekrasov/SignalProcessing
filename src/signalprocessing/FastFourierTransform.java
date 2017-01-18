@@ -15,14 +15,15 @@ import org.apache.commons.math3.complex.Complex;
  */
 public class FastFourierTransform {
     
-    private Complex[] fftResult, iftResult;
+    private final Complex[] fftResult;
+    private Complex[] iftResult;
     
     public FastFourierTransform(List<Double> signal) {
+        Complex[] x = generateComplexArray(signal);
         if (isPow2(signal.size())) {
-            Complex[] x = generateComplexArray(signal);
             fftResult = fft(x, false);
         } else {
-            throw new RuntimeException("Размер сигнала не является степенью двойки");
+            fftResult = fftRandomN(x, false);
         }
     }
     
@@ -37,10 +38,14 @@ public class FastFourierTransform {
     }
     
     public List<Double> getIftList() {
-        iftResult = fft(fftResult, true);
+        if (isPow2(fftResult.length)) {
+            iftResult = fft(fftResult, true);
+        } else {
+            iftResult = fftRandomN(fftResult, true);
+        }
         List<Double> ret = new ArrayList<>();
         for (Complex value : iftResult) {
-            ret.add( value.getReal());
+            ret.add(value.getReal());
         }
         return ret;
     }
@@ -88,6 +93,61 @@ public class FastFourierTransform {
             X[i] = x[i].multiply((double) ei);
         }
         return X;
+    }
+    
+    private Complex[] fftRandomN(Complex[] x, boolean invert) {
+        int N = x.length;
+        int[] tmpMLArray = getML(N);
+        int M = tmpMLArray[0];
+        int L = tmpMLArray[1];
+        
+        Complex[] partialResult = new Complex[N];
+        for (int i = 0; i < M; i++) {
+            Complex[] tmpF = new Complex[L];
+            for (int j = 0; j < L; j++) {
+                tmpF[j] = x[i + j * M];
+            }
+            tmpF = fft(tmpF, invert);
+            for (int j = 0; j < L; j++) {
+                partialResult[i + j * M] = tmpF[j];
+            }
+        }
+        
+        Complex[] F = new Complex[N];
+        for (int s = 0; s < M; s++) {
+            for (int r = 0; r < L; r++) {
+                F[r + s * L] = new Complex(0);
+                for (int m = 0; m < M; m++) {
+                    double arg = 2 * Math.PI * m * (r + s * L) / N * (invert ? -1 : 1);
+                    Complex factor = new Complex(Math.cos(arg), Math.sin(arg));
+                    Complex newF = F[r + s * L].add(partialResult[m + r * M].multiply(factor));
+                    F[r + s * L] = newF;
+                }
+            }
+        }
+        
+        if (invert) {
+            for (int i = 0; i < N; i++) {
+                F[i] = F[i].divide(M);
+            }
+        }
+        
+        return F;
+    }
+    
+    private int[] getML(int n) {
+        int m = 3;
+        int l;
+        while (true) {
+            if (n % m == 0) {
+                l = n / m;
+                if (isPow2(l)) {
+                    break;
+                }
+            }
+            m++;
+        }
+        return new int[] {m, l};
     }
     
     private Complex[] fft(Complex[] x, boolean invert) {
