@@ -39,6 +39,11 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         setSawParamsEnabled(false);
         setFilterEnabled(false);
+        
+        Lab02SupportingJFrame supportingFrame = new Lab02SupportingJFrame();
+        supportingFrame.setVisible(true);
+        
+        System.err.println(getWidth() + " " + getHeight());
     }
 
     /**
@@ -171,7 +176,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(signalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(signalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
