@@ -126,7 +126,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         Filter filter = new Filter(N - 1, fc);
         List<Double> impulseResponse = filter.getImpulseResponse();
         
-        FastFourierTransform fft = new FastFourierTransform(impulseResponse);
+        FourierTransform fft = new FastFourierTransform(impulseResponse);
         List<Double> frequencyResponse = fft.getModuleList();
         
         updateIrChart(impulseResponse);

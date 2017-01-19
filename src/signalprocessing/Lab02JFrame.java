@@ -349,7 +349,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         updateSignalChart(signalChart, signal, sampleRate);
         
-        FastFourierTransform fastFourierTransform = new FastFourierTransform(signal);
+        FourierTransform fastFourierTransform = new FastFourierTransform(signal);
         
         switch (filterComboBox.getSelectedIndex()) {
             case 1 : {

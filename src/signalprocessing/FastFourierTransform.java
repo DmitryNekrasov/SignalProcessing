@@ -13,23 +13,21 @@ import org.apache.commons.math3.complex.Complex;
  *
  * @author nekrasov
  */
-public class FastFourierTransform {
-    
-    private final Complex[] fftResult;
-    private Complex[] iftResult;
+public class FastFourierTransform extends FourierTransform {
     
     public FastFourierTransform(List<Double> signal) {
         Complex[] x = generateComplexArray(signal);
         if (isPow2(signal.size())) {
-            fftResult = fft(x, false);
+            transformResult = fft(x, false);
         } else {
-            fftResult = fftRandomN(x, false);
+            transformResult = fftRandomN(x, false);
         }
     }
     
+    @Override
     public List<Double> getModuleList() {
         List<Double> module = new ArrayList<>();
-        for (Complex value : fftResult) {
+        for (Complex value : transformResult) {
             double x = value.getReal();
             double y = value.getImaginary();
             module.add(Math.sqrt(x * x + y * y));
@@ -37,37 +35,18 @@ public class FastFourierTransform {
         return module;
     }
     
+    @Override
     public List<Double> getIftList() {
-        if (isPow2(fftResult.length)) {
-            iftResult = fft(fftResult, true);
+        if (isPow2(transformResult.length)) {
+            inverseTransformResult = fft(transformResult, true);
         } else {
-            iftResult = fftRandomN(fftResult, true);
+            inverseTransformResult = fftRandomN(transformResult, true);
         }
         List<Double> ret = new ArrayList<>();
-        for (Complex value : iftResult) {
+        for (Complex value : inverseTransformResult) {
             ret.add(value.getReal());
         }
         return ret;
-    }
-    
-    void filterMin(int min) {
-        filterMinMax(min, fftResult.length / 2);
-    }
-    
-    void filterMax(int max) {
-        filterMinMax(0, max);
-    }
-    
-    void filterMinMax(int min, int max) {
-        int n = fftResult.length;
-        for (int i = min; i < max; i++) {
-            fftResult[i] = null;
-            fftResult[i] = new Complex(0);
-        }
-        for (int i = n - max - 1; i < n - min; i++) {
-            fftResult[i] = null;
-            fftResult[i] = new Complex(0);
-        }
     }
     
     private Complex[] generateComplexArray(List<Double> signal) {
