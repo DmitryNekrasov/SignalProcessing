@@ -28,70 +28,71 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="signalLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="8" max="32767" attributes="0"/>
-                      <Component id="signalComboBox" min="-2" pref="120" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="NLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="NTextField" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="TLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="TTextField" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="ALabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="ATextField" min="-2" pref="58" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="TLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="TTextField" min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="NLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="NTextField" min="-2" pref="52" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="startButton" max="32767" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="signalLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="signalComboBox" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="fragmentSizeLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fragmentSizeTextField" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="maxLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="minLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="minTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="maxTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="filterComboBox" min="-2" pref="120" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="fragmentSizeLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fragmentSizeTextField" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="startButton" min="-2" pref="73" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="filterLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="minLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="maxLabel" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="14" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="maxTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="filterButton" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="filterComboBox" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <Component id="minTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="filterFcLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="filterNLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="filterNTextField" max="32767" attributes="0"/>
-                                  <Component id="filterFcTextField" pref="59" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="filterFcLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterNLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="filterNTextField" pref="59" max="32767" attributes="0"/>
+                          <Component id="filterFcTextField" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="windowLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="windowComboBox" min="-2" pref="130" max="-2" attributes="0"/>
@@ -99,8 +100,9 @@
                           <Component id="highFrequencyCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Component id="filterButton" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="634" max="-2" attributes="0"/>
+              <EmptySpace pref="532" max="32767" attributes="0"/>
           </Group>
           <Component id="iftPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -114,49 +116,70 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="iftPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="signalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="signalComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterNLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterNTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="windowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="windowComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jSeparator1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="filterLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="minLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="maxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="maxTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="signalLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="signalComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="fragmentSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fragmentSizeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="ALabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ATextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="startButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="22" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="filterNLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterNTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="windowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="windowComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="filterFcLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterFcTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="highFrequencyCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="fragmentSizeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="fragmentSizeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="minLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterFcLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterFcTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="highFrequencyCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="ALabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ATextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="maxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="maxTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="TLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="startButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="filterButton" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -326,7 +349,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="filterButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x442;&#x430;&#x440;&#x442;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterButtonActionPerformed"/>
@@ -379,6 +402,11 @@
     <Component class="javax.swing.JCheckBox" name="highFrequencyCheckBox">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x441;&#x43e;&#x43a;&#x43e;&#x447;&#x430;&#x441;&#x442;&#x43e;&#x442;&#x43d;&#x44b;&#x439; &#x444;&#x438;&#x43b;&#x44c;&#x442;&#x440;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+      <Properties>
+        <Property name="orientation" type="int" value="1"/>
       </Properties>
     </Component>
   </SubComponents>
