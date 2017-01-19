@@ -82,6 +82,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
         filterNTextField = new javax.swing.JTextField();
         filterFcLabel = new javax.swing.JLabel();
         filterFcTextField = new javax.swing.JTextField();
+        windowLabel = new javax.swing.JLabel();
+        windowComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -192,6 +194,10 @@ public class Lab02JFrame extends javax.swing.JFrame {
             }
         });
 
+        windowLabel.setText("Окно:");
+
+        windowComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Прямоугольное", "Хэмминга", "Бартлетта", "Хэннинга", "Блэкмана" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +209,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(signalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(signalComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -233,21 +239,26 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(filterButton)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(42, 42, 42)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(filterFcLabel)
-                                .addComponent(filterNLabel))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(filterNTextField)
-                                .addComponent(filterFcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)))))
-                .addGap(812, 812, 812))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(filterButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(filterFcLabel)
+                                    .addComponent(filterNLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filterNTextField)
+                                    .addComponent(filterFcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(windowLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(windowComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(634, 634, 634))
             .addComponent(iftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -265,7 +276,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
                     .addComponent(filterLabel)
                     .addComponent(filterComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filterNLabel)
-                    .addComponent(filterNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filterNTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(windowLabel)
+                    .addComponent(windowComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fragmentSizeLabel)
@@ -418,7 +431,25 @@ public class Lab02JFrame extends javax.swing.JFrame {
         int N = Integer.parseInt(filterNTextField.getText());
         double fc = Double.parseDouble(filterFcTextField.getText());
         
-        supportingFrame.makeAll(N, fc);
+        Filter.Name filterName;
+        switch (windowComboBox.getSelectedIndex()) {
+            case 0:
+                filterName = Filter.Name.Rectangular;
+                break;
+            case 1:
+                filterName = Filter.Name.Hamming;
+                break;
+            case 2:
+                filterName = Filter.Name.Bartlett;
+                break;
+            case 3:
+                filterName = Filter.Name.Hanning;
+                break; 
+            default:
+                filterName = Filter.Name.Blackman;
+        }
+        
+        supportingFrame.makeAll(N, fc, filterName);
     }//GEN-LAST:event_filterButtonActionPerformed
 
     private void filterFcTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFcTextFieldActionPerformed
@@ -537,5 +568,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel signalLabel;
     private javax.swing.JPanel signalPanel;
     private javax.swing.JButton startButton;
+    private javax.swing.JComboBox<String> windowComboBox;
+    private javax.swing.JLabel windowLabel;
     // End of variables declaration//GEN-END:variables
 }

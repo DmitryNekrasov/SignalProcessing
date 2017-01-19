@@ -30,7 +30,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="signalLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="8" max="32767" attributes="0"/>
                       <Component id="signalComboBox" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -68,28 +68,34 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="maxTextField" min="-2" pref="100" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Component id="filterButton" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="filterComboBox" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                              <Component id="minTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="filterFcLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="filterNLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="filterNTextField" max="32767" attributes="0"/>
-                              <Component id="filterFcTextField" pref="59" max="32767" attributes="0"/>
+                  <Component id="maxTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="filterButton" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="filterComboBox" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="minTextField" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="filterFcLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filterNLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="filterNTextField" max="32767" attributes="0"/>
+                                  <Component id="filterFcTextField" pref="59" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="windowLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="windowComboBox" min="-2" pref="130" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="812" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="634" max="-2" attributes="0"/>
           </Group>
           <Component id="iftPanel" alignment="0" max="32767" attributes="0"/>
       </Group>
@@ -110,6 +116,8 @@
                   <Component id="filterComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filterNLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filterNTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="windowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="windowComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -340,6 +348,27 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterFcTextFieldActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="windowLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41e;&#x43a;&#x43d;&#x43e;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="windowComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="5">
+            <StringItem index="0" value="&#x41f;&#x440;&#x44f;&#x43c;&#x43e;&#x443;&#x433;&#x43e;&#x43b;&#x44c;&#x43d;&#x43e;&#x435;"/>
+            <StringItem index="1" value="&#x425;&#x44d;&#x43c;&#x43c;&#x438;&#x43d;&#x433;&#x430;"/>
+            <StringItem index="2" value="&#x411;&#x430;&#x440;&#x442;&#x43b;&#x435;&#x442;&#x442;&#x430;"/>
+            <StringItem index="3" value="&#x425;&#x44d;&#x43d;&#x43d;&#x438;&#x43d;&#x433;&#x430;"/>
+            <StringItem index="4" value="&#x411;&#x43b;&#x44d;&#x43a;&#x43c;&#x430;&#x43d;&#x430;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

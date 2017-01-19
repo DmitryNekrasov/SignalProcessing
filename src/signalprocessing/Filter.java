@@ -15,17 +15,28 @@ import java.util.List;
 public class Filter {
     
     private final int N;
+    private final int M;
     private final double fc;
     private final double step;
+    
     private List<Double> impulseResponse;
     private List<Double> frequencyResponse;
     private List<Double> logFrequencyResponse;
 
-    public Filter(int N, double fc, double step) {
+    public static enum Name {
+        Rectangular,
+        Hamming,
+        Bartlett,
+        Hanning,
+        Blackman
+    }
+    
+    public Filter(int N, double fc, double step, Name name) {
         this.N = N;
+        M = N - 1;
         this.fc = fc;
         this.step = step;
-        initImpulseResponse();
+        initImpulseResponse(name);
         initFrequencyResponse();
         initLogFrequencyResponse();
     }
@@ -42,18 +53,65 @@ public class Filter {
         return logFrequencyResponse;
     }
     
-    private void initImpulseResponse() {
+    private void initImpulseResponse(Name name) {
         impulseResponse = new ArrayList<>();
-        int M = N - 1;
-        for (int i = 0; i < N; i++) {
+        double[] w = getW(M, name);
+        for (int i = 0; i < M; i++) {
             double value;
             if (i == M / 2) {
                 value = 2 * fc;
             } else {
                 value = Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
             }
-            impulseResponse.add(value);
+            impulseResponse.add(value * w[i]);
         }
+    }
+    
+    private double[] getW(int size, Name name) {
+        double[] w = new double[size];
+        switch (name) {
+            case Rectangular:
+                for (int i = 0; i < size; i++) {
+                    w[i] = 1;
+                }
+                break;
+            case Hamming:
+                for (int i = 0; i < size; i++) {
+                    w[i] = getHammingValue(i);
+                }
+                break;
+            case Bartlett:
+                for (int i = 0; i < size; i++) {
+                    w[i] = getBartlettValue(i);
+                }
+                break;
+            case Hanning:
+                for (int i = 0; i < size; i++) {
+                    w[i] = getHanningValue(i);
+                }
+                break;
+            default:
+                for (int i = 0; i < size; i++) {
+                    w[i] = getBlackmanValue(i);
+                }
+        }
+        return w;
+    }
+    
+    private double getHammingValue(int i) {
+        return 0.54 - 0.46 * Math.cos(2 * Math.PI * i / M);
+    }
+    
+    private double getBartlettValue(int i) {
+        return 1 - (double) (2 * Math.abs(i - M / 2)) / M;
+    }
+    
+    private double getHanningValue(int i) {
+        return 0.5 - 0.5 * Math.cos(2 * Math.PI * i / M);
+    }
+    
+    private double getBlackmanValue(int i) {
+        return 0.42 - 0.5 * Math.cos(2 * Math.PI * i / M) + 0.08 * Math.cos(4 * Math.PI * i / M);
     }
     
     private void initFrequencyResponse() {
