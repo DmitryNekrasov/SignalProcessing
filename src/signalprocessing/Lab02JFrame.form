@@ -90,9 +90,14 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="windowLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="windowComboBox" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="windowLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="windowComboBox" min="-2" pref="130" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="highFrequencyCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="634" max="-2" attributes="0"/>
@@ -127,6 +132,7 @@
                   <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filterFcLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="filterFcTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="highFrequencyCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -369,6 +375,11 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="highFrequencyCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x441;&#x43e;&#x43a;&#x43e;&#x447;&#x430;&#x441;&#x442;&#x43e;&#x442;&#x43d;&#x44b;&#x439; &#x444;&#x438;&#x43b;&#x44c;&#x442;&#x440;"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

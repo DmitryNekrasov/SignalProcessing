@@ -84,6 +84,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         filterFcTextField = new javax.swing.JTextField();
         windowLabel = new javax.swing.JLabel();
         windowComboBox = new javax.swing.JComboBox<>();
+        highFrequencyCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,6 +199,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         windowComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Прямоугольное", "Хэмминга", "Бартлетта", "Хэннинга", "Блэкмана" }));
 
+        highFrequencyCheckBox.setText("Высокочастотный фильтр");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,9 +258,12 @@ public class Lab02JFrame extends javax.swing.JFrame {
                                     .addComponent(filterNTextField)
                                     .addComponent(filterFcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(windowLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(windowComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(windowLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(windowComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(highFrequencyCheckBox))))
                 .addGap(634, 634, 634))
             .addComponent(iftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -286,7 +292,8 @@ public class Lab02JFrame extends javax.swing.JFrame {
                     .addComponent(minLabel)
                     .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filterFcLabel)
-                    .addComponent(filterFcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filterFcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(highFrequencyCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ALabel)
@@ -449,7 +456,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 filterName = Filter.Name.Blackman;
         }
         
-        supportingFrame.makeAll(N, fc, filterName);
+        boolean isHigh = highFrequencyCheckBox.isSelected();
+        
+        supportingFrame.makeAll(N, fc, filterName, isHigh);
     }//GEN-LAST:event_filterButtonActionPerformed
 
     private void filterFcTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFcTextFieldActionPerformed
@@ -559,6 +568,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField filterNTextField;
     private javax.swing.JLabel fragmentSizeLabel;
     private javax.swing.JTextField fragmentSizeTextField;
+    private javax.swing.JCheckBox highFrequencyCheckBox;
     private javax.swing.JPanel iftPanel;
     private javax.swing.JLabel maxLabel;
     private javax.swing.JTextField maxTextField;

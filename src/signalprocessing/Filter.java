@@ -31,12 +31,12 @@ public class Filter {
         Blackman
     }
     
-    public Filter(int N, double fc, double step, Name name) {
+    public Filter(int N, double fc, double step, Name name, boolean isHigh) {
         this.N = N;
         M = N - 1;
         this.fc = fc;
         this.step = step;
-        initImpulseResponse(name);
+        initImpulseResponse(name, isHigh);
         initFrequencyResponse();
         initLogFrequencyResponse();
     }
@@ -53,15 +53,15 @@ public class Filter {
         return logFrequencyResponse;
     }
     
-    private void initImpulseResponse(Name name) {
+    private void initImpulseResponse(Name name, boolean isHigh) {
         impulseResponse = new ArrayList<>();
         double[] w = getW(M, name);
         for (int i = 0; i < M; i++) {
             double value;
             if (i == M / 2) {
-                value = 2 * fc;
+                value = isHigh ? 1 - 2 * fc : 2 * fc;
             } else {
-                value = Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
+                value = (isHigh ? -1 : 1) * Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
             }
             impulseResponse.add(value * w[i]);
         }

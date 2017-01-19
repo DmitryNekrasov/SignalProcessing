@@ -118,13 +118,13 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void makeAll(int N, double fc, Filter.Name filterName) {
-        makeFilter(N, fc, filterName);
+    public void makeAll(int N, double fc, Filter.Name filterName, boolean isHigh) {
+        makeFilter(N, fc, filterName, isHigh);
     }
     
-    void makeFilter(int N, double fc, Filter.Name filterName) {
+    void makeFilter(int N, double fc, Filter.Name filterName, boolean isHigh) {
         double step = 0.05;
-        Filter filter = new Filter(N, fc, step, filterName);
+        Filter filter = new Filter(N, fc, step, filterName, isHigh);
         
         List<Double> impulseResponse = filter.getImpulseResponse();
         updateIrChart(impulseResponse);
