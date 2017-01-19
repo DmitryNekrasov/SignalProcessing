@@ -6,7 +6,6 @@
 package signalprocessing;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,21 +14,32 @@ import java.util.List;
  */
 public class Filter {
     
-    private int N;
-    private double fc;
+    private final int N;
+    private final double fc;
+    private final double step;
     private List<Double> impulseResponse;
-    private List<Double> transformation;
     private List<Double> frequencyResponse;
     private List<Double> logFrequencyResponse;
 
-    public Filter(int N, double fc) {
+    public Filter(int N, double fc, double step) {
         this.N = N;
         this.fc = fc;
+        this.step = step;
         initImpulseResponse();
+        initFrequencyResponse();
+        initLogFrequencyResponse();
     }
     
     public List<Double> getImpulseResponse() {
         return impulseResponse;
+    }
+    
+    public List<Double> getFrequencyResponse() {
+        return frequencyResponse;
+    }
+    
+    public List<Double> getLogFrequencyResponse() {
+        return logFrequencyResponse;
     }
     
     private void initImpulseResponse() {
@@ -43,6 +53,19 @@ public class Filter {
                 value = Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
             }
             impulseResponse.add(value);
+        }
+    }
+    
+    private void initFrequencyResponse() {
+        FourierTransform dft = new DiscreteFourierTransform(impulseResponse, step);
+        frequencyResponse = dft.getModuleList();
+    }
+    
+    private void initLogFrequencyResponse() {
+        logFrequencyResponse = new ArrayList<>();
+        for (double value : frequencyResponse) {
+            double logValue = 20 * Math.log10(value);
+            logFrequencyResponse.add(logValue);
         }
     }
 }
