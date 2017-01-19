@@ -5,6 +5,7 @@
  */
 package signalprocessing;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.knowm.xchart.XYChart;
 
@@ -13,6 +14,19 @@ import org.knowm.xchart.XYChart;
  * @author nekrasov
  */
 public class Common {
+    
+    public static void updateSignalChart(XYChart chart, List<Double> signal, double sampleRate, String seriesName) {
+        int fragmentSize = signal.size();
+        double duration = fragmentSize / sampleRate;
+        
+        List<Double> x = new ArrayList<>();
+        double step = duration / fragmentSize;
+        for (int i = 0; i < fragmentSize; i++) {
+            x.add(i * step);
+        }
+        
+        Common.updateChart(chart, x, signal, seriesName);
+    }
     
     public static void updateChart(XYChart chart, List<Double> x, List<Double> y, String seriesName) {
         chart.updateXYSeries(seriesName, x, y, null);

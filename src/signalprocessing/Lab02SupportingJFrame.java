@@ -118,24 +118,31 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void makeAll(int N, double fc, Filter.Name filterName, boolean isHigh) {
-        makeFilter(N, fc, filterName, isHigh);
+    public void makeAll(List<Double> signal, int N, double fc, Filter.Name filterName, boolean isHigh, double sampleRate) {
+        Filter filter = makeFilter(N, fc, filterName, isHigh);
+        updateFilterCharts(filter);
+        
+        List<Double> newSignal = filter.filter(signal);
+        Common.updateSignalChart(resultChart, newSignal, sampleRate, seriesName);
+        
+        repaint();
     }
     
-    void makeFilter(int N, double fc, Filter.Name filterName, boolean isHigh) {
+    Filter makeFilter(int N, double fc, Filter.Name filterName, boolean isHigh) {
         double step = 0.05;
         Filter filter = new Filter(N, fc, step, filterName, isHigh);
-        
+        return filter;
+    }
+    
+    void updateFilterCharts(Filter filter) {
         List<Double> impulseResponse = filter.getImpulseResponse();
         updateIrChart(impulseResponse);
         
         List<Double> frequencyResponse = filter.getFrequencyResponse();
-        updateFrChart(fr1Chart, frequencyResponse, step);
+        updateFrChart(fr1Chart, frequencyResponse, filter.getStep());
         
         List<Double> logFrequencyResponse = filter.getLogFrequencyResponse();
-        updateFrChart(fr2Chart, logFrequencyResponse, step);
-        
-        repaint();
+        updateFrChart(fr2Chart, logFrequencyResponse, filter.getStep());
     }
     
     void updateIrChart(List<Double> signal) {

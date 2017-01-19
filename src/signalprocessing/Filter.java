@@ -53,6 +53,22 @@ public class Filter {
         return logFrequencyResponse;
     }
     
+    public double getStep() {
+        return step;
+    }
+    
+    public List<Double> filter(List<Double> signal) {
+        List<Double> newSignal = new ArrayList<>();
+        for (int k = 0, ek = signal.size(); k < ek; k++) {
+            double sum = 0;
+            for (int i = 0, ei = Math.min(N, k + 1); i < ei; i++) {
+                sum += impulseResponse.get(i) * signal.get(k - i);
+            }
+            newSignal.add(sum);
+        }
+        return newSignal;
+    }
+    
     private void initImpulseResponse(Name name, boolean isHigh) {
         impulseResponse = new ArrayList<>();
         double[] w = getW(M, name);
@@ -64,6 +80,9 @@ public class Filter {
                 value = (isHigh ? -1 : 1) * Math.sin(2 * Math.PI * fc * (i - M / 2)) / (Math.PI * (i - M / 2));
             }
             impulseResponse.add(value * w[i]);
+        }
+        for (int i = M; i < N; i++) {
+            impulseResponse.add(0.0);
         }
     }
     

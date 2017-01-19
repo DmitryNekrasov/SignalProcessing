@@ -318,10 +318,11 @@ public class Lab02JFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private List<Double> signal = null;
+    double sampleRate = 1;
+    
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         
-        List<Double> signal = null;
-        double sampleRate = 1;
         SoundStream soundStream = null;
         
         final int index = signalComboBox.getSelectedIndex();
@@ -367,7 +368,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
             sampleRate = soundStream.getSampleRate();
         }
         
-        updateSignalChart(signalChart, signal, sampleRate);
+        Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
         double step = 1.0;
         FourierTransform fastFourierTransform = new FastFourierTransform(signal);
@@ -395,7 +396,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         updateFftChart(fftModule, step);
         
         List<Double> ift = fastFourierTransform.getIftList();
-        updateSignalChart(iftChart, ift, sampleRate);
+        Common.updateSignalChart(iftChart, ift, sampleRate, seriesName);
         
         repaint();
         
@@ -458,7 +459,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         boolean isHigh = highFrequencyCheckBox.isSelected();
         
-        supportingFrame.makeAll(N, fc, filterName, isHigh);
+        supportingFrame.makeAll(signal, N, fc, filterName, isHigh, sampleRate);
     }//GEN-LAST:event_filterButtonActionPerformed
 
     private void filterFcTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFcTextFieldActionPerformed
@@ -477,19 +478,6 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         Graphics2D iftPanelGraphics = (Graphics2D) iftPanel.getGraphics();
         iftChart.paint(iftPanelGraphics, iftPanel.getWidth(), iftPanel.getHeight());
-    }
-    
-    void updateSignalChart(XYChart chart, List<Double> signal, double sampleRate) {
-        int fragmentSize = signal.size();
-        double duration = fragmentSize / sampleRate;
-        
-        List<Double> x = new ArrayList<>();
-        double step = duration / fragmentSize;
-        for (int i = 0; i < fragmentSize; i++) {
-            x.add(i * step);
-        }
-        
-        Common.updateChart(chart, x, signal, seriesName);
     }
     
     void updateFftChart(List<Double> signal, double step) {
