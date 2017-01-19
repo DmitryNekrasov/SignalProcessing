@@ -5,6 +5,7 @@
  */
 package signalprocessing;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.complex.Complex;
 
@@ -37,6 +38,29 @@ abstract public class FourierTransform {
         }
     }
     
-    abstract public List<Double> getModuleList();
+    final protected Complex[] generateComplexArray(List<Double> signal) {
+        Complex[] x = new Complex[signal.size()];
+        int ptr = 0;
+        for (double value : signal) {
+            x[ptr++] = new Complex(value);
+        }
+        return x;
+    }
+    
+    final protected Complex getW(double k, int n, boolean invert) {
+        double arg = 2 * Math.PI * k / n * (invert ? -1 : 1);
+        return new Complex(Math.cos(arg), Math.sin(arg));
+    }
+    
+    final public List<Double> getModuleList() {
+        List<Double> module = new ArrayList<>();
+        for (Complex value : transformResult) {
+            double x = value.getReal();
+            double y = value.getImaginary();
+            module.add(Math.sqrt(x * x + y * y));
+        }
+        return module;
+    }
+    
     abstract public List<Double> getIftList();
 }

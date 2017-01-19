@@ -123,14 +123,15 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
     }
     
     void makeFilter(int N, double fc) {
-        Filter filter = new Filter(N - 1, fc);
+        Filter filter = new Filter(N, fc);
         List<Double> impulseResponse = filter.getImpulseResponse();
         
-        FourierTransform fft = new FastFourierTransform(impulseResponse);
-        List<Double> frequencyResponse = fft.getModuleList();
+        double step = 0.05;
+        FourierTransform dft = new DiscreteFourierTransform(impulseResponse, step);
+        List<Double> frequencyResponse = dft.getModuleList();
         
         updateIrChart(impulseResponse);
-        updateFr1Chart(frequencyResponse);
+        updateFr1Chart(frequencyResponse, step);
         repaint();
     }
     
@@ -142,10 +143,11 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         Common.updateChart(irChart, x, signal, seriesName);
     }
     
-    void updateFr1Chart(List<Double> signal) {
+    void updateFr1Chart(List<Double> signal, double step) {
         List<Double> x = new ArrayList<>();
         for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
-            x.add((double) i);
+            double value = i * step;
+            x.add(value);
         }
         Common.updateChart(fr1Chart, x, signal.subList(0, signal.size() / 2), seriesName);
     }

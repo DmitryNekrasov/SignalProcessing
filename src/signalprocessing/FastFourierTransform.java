@@ -25,17 +25,6 @@ public class FastFourierTransform extends FourierTransform {
     }
     
     @Override
-    public List<Double> getModuleList() {
-        List<Double> module = new ArrayList<>();
-        for (Complex value : transformResult) {
-            double x = value.getReal();
-            double y = value.getImaginary();
-            module.add(Math.sqrt(x * x + y * y));
-        }
-        return module;
-    }
-    
-    @Override
     public List<Double> getIftList() {
         if (isPow2(transformResult.length)) {
             inverseTransformResult = fft(transformResult, true);
@@ -47,15 +36,6 @@ public class FastFourierTransform extends FourierTransform {
             ret.add(value.getReal());
         }
         return ret;
-    }
-    
-    private Complex[] generateComplexArray(List<Double> signal) {
-        Complex[] x = new Complex[signal.size()];
-        int ptr = 0;
-        for (double value : signal) {
-            x[ptr++] = new Complex(value);
-        }
-        return x;
     }
     
     private Complex[] divideBySize(Complex[] x) {
@@ -157,14 +137,6 @@ public class FastFourierTransform extends FourierTransform {
         }
         
         return X;
-    }
-    
-    private Complex getW(int k, int n, boolean invert) {
-        if (k % n == 0) {
-            return new Complex(1);
-        }
-        double arg = 2 * Math.PI * k / n * (invert ? -1 : 1);
-        return new Complex(Math.cos(arg), Math.sin(arg));
     }
     
     private boolean isPow2(int x) {

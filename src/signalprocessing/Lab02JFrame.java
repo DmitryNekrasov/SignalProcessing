@@ -349,6 +349,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         
         updateSignalChart(signalChart, signal, sampleRate);
         
+        double step = 1.0;
         FourierTransform fastFourierTransform = new FastFourierTransform(signal);
         
         switch (filterComboBox.getSelectedIndex()) {
@@ -371,7 +372,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         }
         
         List<Double> fftModule = fastFourierTransform.getModuleList();
-        updateFftChart(fftModule);
+        updateFftChart(fftModule, step);
         
         List<Double> ift = fastFourierTransform.getIftList();
         updateSignalChart(iftChart, ift, sampleRate);
@@ -451,10 +452,10 @@ public class Lab02JFrame extends javax.swing.JFrame {
         Common.updateChart(chart, x, signal, seriesName);
     }
     
-    void updateFftChart(List<Double> signal) {
+    void updateFftChart(List<Double> signal, double step) {
         List<Double> x = new ArrayList<>();
         for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
-            x.add((double) i);
+            x.add(i * step);
         }
         
         Common.updateChart(fftChart, x, signal.subList(0, signal.size() / 2), seriesName);
