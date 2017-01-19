@@ -339,10 +339,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
     private List<Double> signal = null;
     double sampleRate = 1;
+    SoundStream soundStream = null;
     
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        
-        SoundStream soundStream = null;
         
         final int index = signalComboBox.getSelectedIndex();
         
@@ -420,7 +419,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
         repaint();
         
         if (signalComboBox.getSelectedIndex() != SAW_INDEX) {
-            saveSignal(soundStream, ift, "ift_output.wav");
+            saveSignal(soundStream, ift, "Fourier_output.wav");
         }
         
         filterButton.setEnabled(true);
@@ -481,6 +480,11 @@ public class Lab02JFrame extends javax.swing.JFrame {
         boolean isHigh = highFrequencyCheckBox.isSelected();
         
         supportingFrame.makeAll(signal, N, fc, filterName, isHigh, sampleRate);
+        
+        List<Double> resultSignal = supportingFrame.getResultSignal();
+        if (signalComboBox.getSelectedIndex() != SAW_INDEX) {
+            saveSignal(soundStream, resultSignal, "FIR_output.wav");
+        }
     }//GEN-LAST:event_filterButtonActionPerformed
 
     private void filterFcTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFcTextFieldActionPerformed

@@ -118,23 +118,29 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private List<Double> resultSignal;
+    
     public void makeAll(List<Double> signal, int N, double fc, Filter.Name filterName, boolean isHigh, double sampleRate) {
         Filter filter = makeFilter(N, fc, filterName, isHigh);
         updateFilterCharts(filter);
         
-        List<Double> newSignal = filter.filter(signal);
-        Common.updateSignalChart(resultChart, newSignal, sampleRate, seriesName);
+        resultSignal = filter.filter(signal);
+        Common.updateSignalChart(resultChart, resultSignal, sampleRate, seriesName);
         
         repaint();
     }
     
-    Filter makeFilter(int N, double fc, Filter.Name filterName, boolean isHigh) {
+    public List<Double> getResultSignal() {
+        return resultSignal;
+    }
+    
+    private Filter makeFilter(int N, double fc, Filter.Name filterName, boolean isHigh) {
         double step = 0.05;
         Filter filter = new Filter(N, fc, step, filterName, isHigh);
         return filter;
     }
     
-    void updateFilterCharts(Filter filter) {
+    private void updateFilterCharts(Filter filter) {
         List<Double> impulseResponse = filter.getImpulseResponse();
         updateIrChart(impulseResponse);
         
@@ -145,7 +151,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         updateFrChart(fr2Chart, logFrequencyResponse, filter.getStep());
     }
     
-    void updateIrChart(List<Double> signal) {
+    private void updateIrChart(List<Double> signal) {
         List<Double> x = new ArrayList<>();
         for (int i = 0, ei = signal.size(); i < ei; i++) {
             x.add((double) i);
@@ -153,7 +159,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         Common.updateChart(irChart, x, signal, seriesName);
     }
     
-    void updateFrChart(XYChart chart, List<Double> signal, double step) {
+    private void updateFrChart(XYChart chart, List<Double> signal, double step) {
         List<Double> x = new ArrayList<>();
         for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
             double value = i * step;
