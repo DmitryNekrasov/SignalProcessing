@@ -7,6 +7,7 @@ package signalprocessing;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.List;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
 
@@ -90,6 +91,11 @@ public class Lab04JFrame extends javax.swing.JFrame {
         NTextField.setText("80");
 
         startButton.setText("Старт");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,6 +158,35 @@ public class Lab04JFrame extends javax.swing.JFrame {
     private void signalTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signalTypeComboBoxActionPerformed
         setTauEnabled(signalTypeComboBox.getSelectedIndex() == 0);
     }//GEN-LAST:event_signalTypeComboBoxActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        double A = Double.parseDouble(ATextField.getText());
+        double T = Double.parseDouble(TTextField.getText());
+        int N = Integer.parseInt(NTextField.getText());
+        
+        StandartSignal standartSignal;
+        
+        switch (signalTypeComboBox.getSelectedIndex()) {
+            case 0: {
+                double tau = Double.parseDouble(tauTextField.getText());
+                standartSignal = new RectSignal(A, T, N, tau);
+                break;
+            }
+                
+            case 1:
+                standartSignal = new SawSignal(A, T, N);
+                break;
+                
+            default:
+                standartSignal = new TriangleSignal(A, T, N);
+                break;
+        }
+        
+        List<Double> signal = standartSignal.getSignal();
+        
+        Common.updateSignalChart(signalChart, signal, N / T, seriesName);
+        repaint();
+    }//GEN-LAST:event_startButtonActionPerformed
 
     private void setTauEnabled(boolean value) {
         tauLabel.setEnabled(value);
