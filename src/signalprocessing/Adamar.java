@@ -21,6 +21,8 @@ public class Adamar {
         W = new int[N][N];
         if (isWalsh) {
             genWalsh();
+        } else {
+            genAdamar();
         }
     }
     
@@ -52,11 +54,32 @@ public class Adamar {
         }
     }
     
+    private void genAdamar() {
+        makeAdamar(W, N);
+    }
+    
+    private void makeAdamar(final int[][] a, final int size) {
+        if (size == 1) {
+            a[0][0] = 1;
+        } else {
+            int half = size / 2;
+            makeAdamar(a, half);
+            for (int i = 0; i < half; i++) {
+                for (int j = 0; j < half; j++) {
+                    a[i][j + half] = a[i][j];
+                    a[i + half][j] = a[i][j];
+                    a[i + half][j + half] = -a[i][j];
+                }
+            }
+        }
+    }
+    
     private double log2(double value) {
         return Math.log(value) / Math.log(2);
     }
     
     private void printW() {
+        System.err.println(W.length + " " + W[0].length);
         for (int i = 0; i < N; i++) {
             System.out.println(Arrays.toString(W[i]));
         }

@@ -254,15 +254,16 @@ public class Lab04JFrame extends javax.swing.JFrame {
         Common.updateSignalChart(signalChart, signal, N / T, seriesName);
         
         boolean isWalsh = transformComboBox.getSelectedIndex() == 0;
+        Adamar adamar = new Adamar(signal.size(), isWalsh);
         
-        RectTransform transform = new RectTransform(signal, isWalsh, false);
+        RectTransform transform = new RectTransform(signal, adamar, false);
         List<Double> amplitude = transform.getAmplitude();
         Common.updateSignalChart(amplitudeChart, amplitude, 1, seriesName);
         
         List<Double> phase = transform.getPhase();
         Common.updateSignalChart(phaseChart , phase, 1, seriesName);
         
-        RectTransform inverseTransform = new RectTransform(transform.getTransformation(), isWalsh, true);
+        RectTransform inverseTransform = new RectTransform(transform.getTransformation(), adamar, true);
         List<Double> result = inverseTransform.getTransformation();
         Common.updateSignalChart(resultChart, result, N / T, seriesName);
         

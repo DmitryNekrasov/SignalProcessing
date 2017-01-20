@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class RectTransform {
     
-    private final boolean isWalsh;
     private final boolean inverse;
+    private final Adamar adamar;
     private final List<Double> transformation;
 
-    public RectTransform(List<Double> signal, boolean isWalsh, boolean inverse) {
-        this.isWalsh = isWalsh;
+    public RectTransform(List<Double> signal, Adamar adamar, boolean inverse) {
         this.inverse = inverse;
+        this.adamar = adamar;
         transformation = transform(signal);
     }
     
@@ -49,7 +49,6 @@ public class RectTransform {
     
     private List<Double> transform(List<Double> signal) {
         int n = signal.size();
-        Adamar adamar = new Adamar(n, isWalsh);
         List<Double> result = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             double sum = 0;
