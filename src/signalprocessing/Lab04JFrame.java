@@ -19,7 +19,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
     final String seriesName = "y(x)";
     
-    XYChart signalChart, amplitudeChart, resultChart;
+    XYChart signalChart, amplitudeChart, phaseChart, resultChart;
     
     /**
      * Creates new form Lab04JFrame
@@ -29,6 +29,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
         
         signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         amplitudeChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        phaseChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
     }
 
@@ -55,6 +56,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
         amplitudePanel = new javax.swing.JPanel();
         resultPanel = new javax.swing.JPanel();
+        phasePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,6 +125,17 @@ public class Lab04JFrame extends javax.swing.JFrame {
             .addGap(0, 150, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout phasePanelLayout = new javax.swing.GroupLayout(phasePanel);
+        phasePanel.setLayout(phasePanelLayout);
+        phasePanelLayout.setHorizontalGroup(
+            phasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        phasePanelLayout.setVerticalGroup(
+            phasePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,22 +146,28 @@ public class Lab04JFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NLabel)
-                            .addComponent(tauLabel)
                             .addComponent(TLabel)
                             .addComponent(ALabel)
                             .addComponent(signalTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ATextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ATextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(NLabel)
+                                    .addComponent(tauLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                    .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)))))
                     .addComponent(startButton))
-                .addContainerGap(815, Short.MAX_VALUE))
+                .addContainerGap(851, Short.MAX_VALUE))
             .addComponent(amplitudePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(phasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -158,30 +177,34 @@ public class Lab04JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(amplitudePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(phasePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalTypeLabel)
                     .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ALabel)
-                    .addComponent(ATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ALabel)
+                            .addComponent(ATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TLabel)
+                            .addComponent(TTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tauLabel)
+                            .addComponent(tauTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(NLabel)
+                            .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TLabel)
-                    .addComponent(TTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tauLabel)
-                    .addComponent(tauTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NLabel)
-                    .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(startButton)
-                .addGap(28, 28, 28))
+                .addContainerGap())
         );
 
         pack();
@@ -221,6 +244,9 @@ public class Lab04JFrame extends javax.swing.JFrame {
         List<Double> walshAmplitude = transform.getAmplitude();
         Common.updateSignalChart(amplitudeChart, walshAmplitude, 1, seriesName);
         
+        List<Double> walshPhase = transform.getPhase();
+        Common.updateSignalChart(phaseChart , walshPhase, 1, seriesName);
+        
         RectTransform inverseTransform = new RectTransform(transform.getTransformation(), true, true);
         List<Double> walshResult = inverseTransform.getTransformation();
         Common.updateSignalChart(resultChart, walshResult, N / T, seriesName);
@@ -243,6 +269,9 @@ public class Lab04JFrame extends javax.swing.JFrame {
         Graphics2D amplitudePanelGraphics = (Graphics2D) amplitudePanel.getGraphics();
         amplitudeChart.paint(amplitudePanelGraphics, amplitudePanel.getWidth(), amplitudePanel.getHeight());
         
+        Graphics2D phasePanelGraphics = (Graphics2D) phasePanel.getGraphics();
+        phaseChart.paint(phasePanelGraphics, phasePanel.getWidth(), phasePanel.getHeight());
+        
         Graphics2D resultPanelGraphics = (Graphics2D) resultPanel.getGraphics();
         resultChart.paint(resultPanelGraphics, resultPanel.getWidth(), resultPanel.getHeight());
     }
@@ -255,6 +284,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TLabel;
     private javax.swing.JTextField TTextField;
     private javax.swing.JPanel amplitudePanel;
+    private javax.swing.JPanel phasePanel;
     private javax.swing.JPanel resultPanel;
     private javax.swing.JPanel signalPanel;
     private javax.swing.JComboBox<String> signalTypeComboBox;

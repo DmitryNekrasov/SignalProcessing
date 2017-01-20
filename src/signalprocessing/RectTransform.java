@@ -34,6 +34,15 @@ public class RectTransform {
         return result;
     }
     
+    public List<Double> getPhase() {
+        List<Double> result = new ArrayList<>();
+        for (int i = 0, ei = transformation.size() / 2; i < ei; i++) {
+            double value = Math.atan2(transformation.get(i + 1), transformation.get(i + 2));
+            result.add(value);
+        }
+        return result;
+    }
+    
     public List<Double> getTransformation() {
         return transformation;
     }
