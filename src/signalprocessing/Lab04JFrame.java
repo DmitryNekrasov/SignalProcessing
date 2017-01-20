@@ -186,6 +186,9 @@ public class Lab04JFrame extends javax.swing.JFrame {
         
         Common.updateSignalChart(signalChart, signal, N / T, seriesName);
         repaint();
+        
+        Adamar adamar = new Adamar(8, true);
+        
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void setTauEnabled(boolean value) {
