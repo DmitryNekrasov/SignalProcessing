@@ -19,7 +19,7 @@ public class RectSignal extends StandartSignal {
     }
 
     @Override
-    public double getFunctionValue(final double x) {
+    protected double getFunctionValue(final double x) {
         double modX = getModX(x);
         return modX > -tau / 2 && modX < tau / 2 ? A : 0;
     }

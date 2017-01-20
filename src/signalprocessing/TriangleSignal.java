@@ -16,7 +16,7 @@ public class TriangleSignal extends StandartSignal {
     }
 
     @Override
-    public double getFunctionValue(final double x) {
+    protected double getFunctionValue(final double x) {
         return -Math.abs(4 * A * getModX(x) / T) + A;
     }
     
