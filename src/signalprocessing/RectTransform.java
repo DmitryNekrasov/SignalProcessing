@@ -47,6 +47,16 @@ public class RectTransform {
         return transformation;
     }
     
+    final void filterMinMax(int min, int max) {
+        int n = transformation.size();
+        for (int i = min; i < max; i++) {
+            transformation.set(i, 0.0);
+        }
+        for (int i = n - max - 1; i < n - min; i++) {
+            transformation.set(i, 0.0);
+        }
+    }
+    
     private List<Double> transform(List<Double> signal) {
         int n = signal.size();
         List<Double> result = new ArrayList<>();

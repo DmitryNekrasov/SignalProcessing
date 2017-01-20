@@ -31,6 +31,8 @@ public class Lab04JFrame extends javax.swing.JFrame {
         amplitudeChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         phaseChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        
+        setFilterEnabled(false);
     }
 
     /**
@@ -59,6 +61,11 @@ public class Lab04JFrame extends javax.swing.JFrame {
         phasePanel = new javax.swing.JPanel();
         transformLabel = new javax.swing.JLabel();
         transformComboBox = new javax.swing.JComboBox<>();
+        minLabel = new javax.swing.JLabel();
+        minTextField = new javax.swing.JTextField();
+        maxLabel = new javax.swing.JLabel();
+        maxTextField = new javax.swing.JTextField();
+        filterCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,6 +149,21 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
         transformComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Уолша", "Адамара" }));
 
+        minLabel.setText("min:");
+
+        minTextField.setText("30");
+
+        maxLabel.setText("max:");
+
+        maxTextField.setText("30");
+
+        filterCheckBox.setText("Фильтрация");
+        filterCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,12 +179,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
                             .addComponent(signalTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
-                                .addComponent(transformLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(transformComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,9 +191,25 @@ public class Lab04JFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                    .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                    .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(transformLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(transformComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(filterCheckBox)
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(minLabel)
+                                    .addComponent(maxLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(minTextField)
+                                    .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(startButton))
-                .addContainerGap(635, Short.MAX_VALUE))
+                .addContainerGap(619, Short.MAX_VALUE))
             .addComponent(amplitudePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(phasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,11 +243,20 @@ public class Lab04JFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tauLabel)
-                            .addComponent(tauTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tauTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(filterCheckBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(NLabel)
-                            .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(minLabel)
+                            .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(maxLabel))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(startButton)
                 .addContainerGap())
@@ -257,6 +299,13 @@ public class Lab04JFrame extends javax.swing.JFrame {
         Adamar adamar = new Adamar(signal.size(), isWalsh);
         
         RectTransform transform = new RectTransform(signal, adamar, false);
+        
+        if (filterCheckBox.isSelected()) {
+            int min = Integer.parseInt(minTextField.getText());
+            int max = Integer.parseInt(maxTextField.getText());
+            transform.filterMinMax(min, max);
+        }
+        
         List<Double> amplitude = transform.getAmplitude();
         Common.updateSignalChart(amplitudeChart, amplitude, 1, seriesName);
         
@@ -270,9 +319,20 @@ public class Lab04JFrame extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 
+    private void filterCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCheckBoxActionPerformed
+        setFilterEnabled(filterCheckBox.isSelected());
+    }//GEN-LAST:event_filterCheckBoxActionPerformed
+
     private void setTauEnabled(boolean value) {
         tauLabel.setEnabled(value);
         tauTextField.setEditable(value);
+    }
+    
+    private void setFilterEnabled(boolean value) {
+        minLabel.setEnabled(value);
+        minTextField.setEditable(value);
+        maxLabel.setEnabled(value);
+        maxTextField.setEditable(value);
     }
     
     @Override
@@ -300,6 +360,11 @@ public class Lab04JFrame extends javax.swing.JFrame {
     private javax.swing.JLabel TLabel;
     private javax.swing.JTextField TTextField;
     private javax.swing.JPanel amplitudePanel;
+    private javax.swing.JCheckBox filterCheckBox;
+    private javax.swing.JLabel maxLabel;
+    private javax.swing.JTextField maxTextField;
+    private javax.swing.JLabel minLabel;
+    private javax.swing.JTextField minTextField;
     private javax.swing.JPanel phasePanel;
     private javax.swing.JPanel resultPanel;
     private javax.swing.JPanel signalPanel;

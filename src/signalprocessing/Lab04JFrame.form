@@ -35,13 +35,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="signalTypeComboBox" min="-2" pref="130" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                              <Component id="transformLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="transformComboBox" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="signalTypeComboBox" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="TTextField" alignment="0" max="32767" attributes="0"/>
@@ -59,10 +53,31 @@
                               </Group>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="transformLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="transformComboBox" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="filterCheckBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="minLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="maxLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="minTextField" max="32767" attributes="0"/>
+                                  <Component id="maxTextField" min="-2" pref="64" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
                   <Component id="startButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="635" max="32767" attributes="0"/>
+              <EmptySpace pref="619" max="32767" attributes="0"/>
           </Group>
           <Component id="amplitudePanel" alignment="0" max="32767" attributes="0"/>
           <Component id="phasePanel" alignment="0" max="32767" attributes="0"/>
@@ -103,11 +118,23 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="tauLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tauTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="filterCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="minLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="maxTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="maxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -266,6 +293,34 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="minLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="min:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="minTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="30"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="maxLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="max:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="maxTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="30"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="filterCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x43b;&#x44c;&#x442;&#x440;&#x430;&#x446;&#x438;&#x44f;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterCheckBoxActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
