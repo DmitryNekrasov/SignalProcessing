@@ -5,17 +5,28 @@
  */
 package signalprocessing;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.XYChart;
+
 /**
  *
  * @author nekrasov
  */
 public class Lab04JFrame extends javax.swing.JFrame {
 
+    final String seriesName = "y(x)";
+    
+    XYChart signalChart;
+    
     /**
      * Creates new form Lab04JFrame
      */
     public Lab04JFrame() {
         initComponents();
+        
+        signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
     }
 
     /**
@@ -27,57 +38,146 @@ public class Lab04JFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        signalPanel = new javax.swing.JPanel();
+        signalTypeLabel = new javax.swing.JLabel();
+        signalTypeComboBox = new javax.swing.JComboBox<>();
+        ALabel = new javax.swing.JLabel();
+        ATextField = new javax.swing.JTextField();
+        TLabel = new javax.swing.JLabel();
+        TTextField = new javax.swing.JTextField();
+        tauLabel = new javax.swing.JLabel();
+        tauTextField = new javax.swing.JTextField();
+        NLabel = new javax.swing.JLabel();
+        NTextField = new javax.swing.JTextField();
+        startButton = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout signalPanelLayout = new javax.swing.GroupLayout(signalPanel);
+        signalPanel.setLayout(signalPanelLayout);
+        signalPanelLayout.setHorizontalGroup(
+            signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        signalPanelLayout.setVerticalGroup(
+            signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        signalTypeLabel.setText("Тип сигнала:");
+
+        signalTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Прямоугольный", "Пилообразный", "Треугольный" }));
+        signalTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signalTypeComboBoxActionPerformed(evt);
+            }
+        });
+
+        ALabel.setText("A:");
+
+        ATextField.setText("10");
+
+        TLabel.setText("T:");
+
+        TTextField.setText("5");
+
+        tauLabel.setText("tau:");
+
+        tauTextField.setText("3");
+
+        NLabel.setText("N:");
+
+        NTextField.setText("80");
+
+        startButton.setText("Старт");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(signalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(NLabel)
+                            .addComponent(tauLabel)
+                            .addComponent(TLabel)
+                            .addComponent(ALabel)
+                            .addComponent(signalTypeLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                                .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ATextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addComponent(startButton))
+                .addContainerGap(815, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(signalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(signalTypeLabel)
+                    .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ALabel)
+                    .addComponent(ATextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TLabel)
+                    .addComponent(TTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tauLabel)
+                    .addComponent(tauTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NLabel)
+                    .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(startButton)
+                .addGap(0, 141, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Lab04JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Lab04JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Lab04JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Lab04JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void signalTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signalTypeComboBoxActionPerformed
+        setTauEnabled(signalTypeComboBox.getSelectedIndex() == 0);
+    }//GEN-LAST:event_signalTypeComboBoxActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Lab04JFrame().setVisible(true);
-            }
-        });
+    private void setTauEnabled(boolean value) {
+        tauLabel.setEnabled(value);
+        tauTextField.setEditable(value);
     }
-
+    
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        
+        Graphics2D signalPanelGraphics = (Graphics2D) signalPanel.getGraphics();
+        signalChart.paint(signalPanelGraphics, signalPanel.getWidth(), signalPanel.getHeight());
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ALabel;
+    private javax.swing.JTextField ATextField;
+    private javax.swing.JLabel NLabel;
+    private javax.swing.JTextField NTextField;
+    private javax.swing.JLabel TLabel;
+    private javax.swing.JTextField TTextField;
+    private javax.swing.JPanel signalPanel;
+    private javax.swing.JComboBox<String> signalTypeComboBox;
+    private javax.swing.JLabel signalTypeLabel;
+    private javax.swing.JButton startButton;
+    private javax.swing.JLabel tauLabel;
+    private javax.swing.JTextField tauTextField;
     // End of variables declaration//GEN-END:variables
 }

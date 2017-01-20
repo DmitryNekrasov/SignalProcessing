@@ -23,13 +23,153 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Component id="signalPanel" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="NLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="tauLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="TLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="ALabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="signalTypeLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="signalTypeComboBox" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="NTextField" alignment="0" pref="64" max="32767" attributes="0"/>
+                              <Component id="tauTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="TTextField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="ATextField" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Component id="startButton" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="815" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="signalPanel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="signalTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="signalTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="ALabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ATextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="TLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tauLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tauTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="NLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="NTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="startButton" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="141" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="signalPanel">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Component class="javax.swing.JLabel" name="signalTypeLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x422;&#x438;&#x43f; &#x441;&#x438;&#x433;&#x43d;&#x430;&#x43b;&#x430;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="signalTypeComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="&#x41f;&#x440;&#x44f;&#x43c;&#x43e;&#x443;&#x433;&#x43e;&#x43b;&#x44c;&#x43d;&#x44b;&#x439;"/>
+            <StringItem index="1" value="&#x41f;&#x438;&#x43b;&#x43e;&#x43e;&#x431;&#x440;&#x430;&#x437;&#x43d;&#x44b;&#x439;"/>
+            <StringItem index="2" value="&#x422;&#x440;&#x435;&#x443;&#x433;&#x43e;&#x43b;&#x44c;&#x43d;&#x44b;&#x439;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signalTypeComboBoxActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ALabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ATextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="10"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="T:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="5"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tauLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="tau:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tauTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="3"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="NLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="N:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="NTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="80"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="startButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x442;&#x430;&#x440;&#x442;"/>
+      </Properties>
+    </Component>
+  </SubComponents>
 </Form>
