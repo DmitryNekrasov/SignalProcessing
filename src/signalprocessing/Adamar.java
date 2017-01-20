@@ -13,8 +13,8 @@ import java.util.Arrays;
  */
 public class Adamar {
     
-    private int N;
-    private int[][] W;
+    private final int N;
+    private final int[][] W;
     
     public Adamar(int N, boolean isWalsh) {
         this.N = N;
@@ -22,7 +22,10 @@ public class Adamar {
         if (isWalsh) {
             genWalsh();
         }
-        printW();
+    }
+    
+    public int getW(int u, int v) {
+        return W[u][v];
     }
     
     private void genWalsh() {

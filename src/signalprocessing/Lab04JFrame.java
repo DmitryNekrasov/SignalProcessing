@@ -19,7 +19,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
     final String seriesName = "y(x)";
     
-    XYChart signalChart;
+    XYChart signalChart, amplitudeChart, resultChart;
     
     /**
      * Creates new form Lab04JFrame
@@ -28,6 +28,8 @@ public class Lab04JFrame extends javax.swing.JFrame {
         initComponents();
         
         signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        amplitudeChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
     }
 
     /**
@@ -51,6 +53,8 @@ public class Lab04JFrame extends javax.swing.JFrame {
         NLabel = new javax.swing.JLabel();
         NTextField = new javax.swing.JTextField();
         startButton = new javax.swing.JButton();
+        amplitudePanel = new javax.swing.JPanel();
+        resultPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,7 +66,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
         );
         signalPanelLayout.setVerticalGroup(
             signalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 150, Short.MAX_VALUE)
         );
 
         signalTypeLabel.setText("Тип сигнала:");
@@ -88,7 +92,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
         NLabel.setText("N:");
 
-        NTextField.setText("80");
+        NTextField.setText("64");
 
         startButton.setText("Старт");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +100,28 @@ public class Lab04JFrame extends javax.swing.JFrame {
                 startButtonActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout amplitudePanelLayout = new javax.swing.GroupLayout(amplitudePanel);
+        amplitudePanel.setLayout(amplitudePanelLayout);
+        amplitudePanelLayout.setHorizontalGroup(
+            amplitudePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        amplitudePanelLayout.setVerticalGroup(
+            amplitudePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout resultPanelLayout = new javax.swing.GroupLayout(resultPanel);
+        resultPanel.setLayout(resultPanelLayout);
+        resultPanelLayout.setHorizontalGroup(
+            resultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        resultPanelLayout.setVerticalGroup(
+            resultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,12 +148,18 @@ public class Lab04JFrame extends javax.swing.JFrame {
                                 .addComponent(ATextField, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(startButton))
                 .addContainerGap(815, Short.MAX_VALUE))
+            .addComponent(amplitudePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(signalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(amplitudePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalTypeLabel)
                     .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -149,7 +181,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
                     .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(startButton)
-                .addGap(0, 141, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -183,12 +215,17 @@ public class Lab04JFrame extends javax.swing.JFrame {
         }
         
         List<Double> signal = standartSignal.getSignal();
-        
         Common.updateSignalChart(signalChart, signal, N / T, seriesName);
+        
+        RectTransform transform = new RectTransform(signal, true, false);
+        List<Double> walshAmplitude = transform.getAmplitude();
+        Common.updateSignalChart(amplitudeChart, walshAmplitude, 1, seriesName);
+        
+        RectTransform inverseTransform = new RectTransform(transform.getTransformation(), true, true);
+        List<Double> walshResult = inverseTransform.getTransformation();
+        Common.updateSignalChart(resultChart, walshResult, N / T, seriesName);
+        
         repaint();
-        
-        Adamar adamar = new Adamar(8, true);
-        
     }//GEN-LAST:event_startButtonActionPerformed
 
     private void setTauEnabled(boolean value) {
@@ -202,6 +239,12 @@ public class Lab04JFrame extends javax.swing.JFrame {
         
         Graphics2D signalPanelGraphics = (Graphics2D) signalPanel.getGraphics();
         signalChart.paint(signalPanelGraphics, signalPanel.getWidth(), signalPanel.getHeight());
+        
+        Graphics2D amplitudePanelGraphics = (Graphics2D) amplitudePanel.getGraphics();
+        amplitudeChart.paint(amplitudePanelGraphics, amplitudePanel.getWidth(), amplitudePanel.getHeight());
+        
+        Graphics2D resultPanelGraphics = (Graphics2D) resultPanel.getGraphics();
+        resultChart.paint(resultPanelGraphics, resultPanel.getWidth(), resultPanel.getHeight());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -211,6 +254,8 @@ public class Lab04JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField NTextField;
     private javax.swing.JLabel TLabel;
     private javax.swing.JTextField TTextField;
+    private javax.swing.JPanel amplitudePanel;
+    private javax.swing.JPanel resultPanel;
     private javax.swing.JPanel signalPanel;
     private javax.swing.JComboBox<String> signalTypeComboBox;
     private javax.swing.JLabel signalTypeLabel;

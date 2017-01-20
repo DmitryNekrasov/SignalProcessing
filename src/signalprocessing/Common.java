@@ -17,10 +17,9 @@ public class Common {
     
     public static void updateSignalChart(XYChart chart, List<Double> signal, double sampleRate, String seriesName) {
         int fragmentSize = signal.size();
-        double duration = fragmentSize / sampleRate;
         
         List<Double> x = new ArrayList<>();
-        double step = duration / fragmentSize;
+        double step = 1.0 / sampleRate;
         for (int i = 0; i < fragmentSize; i++) {
             x.add(i * step);
         }
