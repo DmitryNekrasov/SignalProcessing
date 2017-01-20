@@ -15,9 +15,18 @@ public class SignalProcessing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Lab02JFrame lab02Frame = new Lab02JFrame();
-        lab02Frame.setTitle("ЛР №2. Основные понятия линейных фильтров. КИХ-фильтры.");
-        lab02Frame.setVisible(true);
+        startLab04();
+    }
+    
+    private static void startLab02() {
+        Lab02JFrame frame = new Lab02JFrame();
+        frame.setTitle("ЛР №2. Основные понятия линейных фильтров. КИХ-фильтры.");
+        frame.setVisible(true);
+    }
+    
+    private static void startLab04() {
+        Lab04JFrame frame = new Lab04JFrame();
+        frame.setVisible(true);
     }
     
 }
