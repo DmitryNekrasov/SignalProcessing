@@ -57,6 +57,8 @@ public class Lab04JFrame extends javax.swing.JFrame {
         amplitudePanel = new javax.swing.JPanel();
         resultPanel = new javax.swing.JPanel();
         phasePanel = new javax.swing.JPanel();
+        transformLabel = new javax.swing.JLabel();
+        transformComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,7 +96,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
         NLabel.setText("N:");
 
-        NTextField.setText("64");
+        NTextField.setText("512");
 
         startButton.setText("Старт");
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +138,10 @@ public class Lab04JFrame extends javax.swing.JFrame {
             .addGap(0, 150, Short.MAX_VALUE)
         );
 
+        transformLabel.setText("Преобразование:");
+
+        transformComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Уолша", "Адамара" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,7 +157,12 @@ public class Lab04JFrame extends javax.swing.JFrame {
                             .addComponent(signalTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(64, 64, 64)
+                                .addComponent(transformLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(transformComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +176,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
                                     .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                                     .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)))))
                     .addComponent(startButton))
-                .addContainerGap(851, Short.MAX_VALUE))
+                .addContainerGap(635, Short.MAX_VALUE))
             .addComponent(amplitudePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(phasePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -183,7 +194,9 @@ public class Lab04JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalTypeLabel)
-                    .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transformLabel)
+                    .addComponent(transformComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -240,16 +253,18 @@ public class Lab04JFrame extends javax.swing.JFrame {
         List<Double> signal = standartSignal.getSignal();
         Common.updateSignalChart(signalChart, signal, N / T, seriesName);
         
-        RectTransform transform = new RectTransform(signal, true, false);
-        List<Double> walshAmplitude = transform.getAmplitude();
-        Common.updateSignalChart(amplitudeChart, walshAmplitude, 1, seriesName);
+        boolean isWalsh = transformComboBox.getSelectedIndex() == 0;
         
-        List<Double> walshPhase = transform.getPhase();
-        Common.updateSignalChart(phaseChart , walshPhase, 1, seriesName);
+        RectTransform transform = new RectTransform(signal, isWalsh, false);
+        List<Double> amplitude = transform.getAmplitude();
+        Common.updateSignalChart(amplitudeChart, amplitude, 1, seriesName);
         
-        RectTransform inverseTransform = new RectTransform(transform.getTransformation(), true, true);
-        List<Double> walshResult = inverseTransform.getTransformation();
-        Common.updateSignalChart(resultChart, walshResult, N / T, seriesName);
+        List<Double> phase = transform.getPhase();
+        Common.updateSignalChart(phaseChart , phase, 1, seriesName);
+        
+        RectTransform inverseTransform = new RectTransform(transform.getTransformation(), isWalsh, true);
+        List<Double> result = inverseTransform.getTransformation();
+        Common.updateSignalChart(resultChart, result, N / T, seriesName);
         
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
@@ -292,5 +307,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
     private javax.swing.JButton startButton;
     private javax.swing.JLabel tauLabel;
     private javax.swing.JTextField tauTextField;
+    private javax.swing.JComboBox<String> transformComboBox;
+    private javax.swing.JLabel transformLabel;
     // End of variables declaration//GEN-END:variables
 }

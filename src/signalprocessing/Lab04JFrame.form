@@ -35,7 +35,13 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="signalTypeComboBox" min="-2" pref="130" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="signalTypeComboBox" min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                              <Component id="transformLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="transformComboBox" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="TTextField" alignment="0" max="32767" attributes="0"/>
@@ -56,7 +62,7 @@
                   </Group>
                   <Component id="startButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="851" max="32767" attributes="0"/>
+              <EmptySpace pref="635" max="32767" attributes="0"/>
           </Group>
           <Component id="amplitudePanel" alignment="0" max="32767" attributes="0"/>
           <Component id="phasePanel" alignment="0" max="32767" attributes="0"/>
@@ -77,6 +83,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="signalTypeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="signalTypeComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="transformLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="transformComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -185,7 +193,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="NTextField">
       <Properties>
-        <Property name="text" type="java.lang.String" value="64"/>
+        <Property name="text" type="java.lang.String" value="512"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="startButton">
@@ -241,5 +249,23 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JLabel" name="transformLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41f;&#x440;&#x435;&#x43e;&#x431;&#x440;&#x430;&#x437;&#x43e;&#x432;&#x430;&#x43d;&#x438;&#x435;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="transformComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="&#x423;&#x43e;&#x43b;&#x448;&#x430;"/>
+            <StringItem index="1" value="&#x410;&#x434;&#x430;&#x43c;&#x430;&#x440;&#x430;"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
   </SubComponents>
 </Form>
