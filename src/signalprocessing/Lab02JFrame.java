@@ -188,9 +188,9 @@ public class Lab02JFrame extends javax.swing.JFrame {
 
         filterNTextField.setText("257");
 
-        filterFcLabel.setText("fc:");
+        filterFcLabel.setText("Частота среза:");
 
-        filterFcTextField.setText("0.02267");
+        filterFcTextField.setText("1000");
         filterFcTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterFcTextFieldActionPerformed(evt);
@@ -256,14 +256,14 @@ public class Lab02JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(filterFcLabel)
                             .addComponent(filterNLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(filterNTextField)
-                            .addComponent(filterFcTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(filterFcTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                            .addComponent(filterNTextField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(windowLabel)
@@ -271,7 +271,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
                                 .addComponent(windowComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(highFrequencyCheckBox)))
                     .addComponent(filterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(532, Short.MAX_VALUE))
+                .addContainerGap(466, Short.MAX_VALUE))
             .addComponent(iftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -460,7 +460,7 @@ public class Lab02JFrame extends javax.swing.JFrame {
     private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
         
         int N = Integer.parseInt(filterNTextField.getText());
-        double fc = Double.parseDouble(filterFcTextField.getText());
+        double fc = Integer.parseInt(filterFcTextField.getText()) / sampleRate;
         
         Filter.Name filterName;
         switch (windowComboBox.getSelectedIndex()) {
