@@ -52,11 +52,7 @@ public class RectTransform {
     }
     
     final void filterMinMax(int min, int max) {
-        int n = transformation.size();
-        for (int i = min; i < max; i++) {
-            transformation.set(i, 0.0);
-        }
-        for (int i = n - max - 1; i < n - min; i++) {
+        for (int i = min, ei = Math.min(max, transformation.size()); i < ei; i++) {
             transformation.set(i, 0.0);
         }
     }
