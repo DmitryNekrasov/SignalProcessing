@@ -26,20 +26,24 @@ public class RectTransform {
     
     public List<Double> getAmplitude() {
         List<Double> result = new ArrayList<>();
-        for (int i = 0, ei = transformation.size() / 2; i < ei; i++) {
-            double value = Math.sqrt(transformation.get(i + 1) * transformation.get(i + 1) + 
-                    transformation.get(i + 2) * transformation.get(i + 2));
+        result.add(transformation.get(0));
+        for (int i = 0, ei = transformation.size() / 2 - 1; i < ei; i++) {
+            double value = Math.sqrt(transformation.get(i * 2 + 1) * transformation.get(i * 2 + 1) + 
+                    transformation.get(i * 2 + 2) * transformation.get(i * 2 + 2));
             result.add(value);
         }
+        result.add(transformation.get(transformation.size() / 2));
         return result;
     }
     
     public List<Double> getPhase() {
         List<Double> result = new ArrayList<>();
-        for (int i = 0, ei = transformation.size() / 2; i < ei; i++) {
-            double value = Math.atan2(transformation.get(i + 1), transformation.get(i + 2));
+        result.add(0.0);
+        for (int i = 0, ei = transformation.size() / 2 - 1; i < ei; i++) {
+            double value = Math.atan2(transformation.get(i * 2 + 1), transformation.get(i * 2 + 2));
             result.add(value);
         }
+        result.add(Math.PI / 2);
         return result;
     }
     
