@@ -122,7 +122,7 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
     
     public void makeAll(List<Double> signal, int N, double fc, Filter.Name filterName, boolean isHigh, double sampleRate) {
         Filter filter = makeFilter(N, fc, filterName, isHigh);
-        updateFilterCharts(filter);
+        updateFilterCharts(filter, N, sampleRate);
         
         resultSignal = filter.filter(signal);
         Common.updateSignalChart(resultChart, resultSignal, sampleRate, seriesName);
@@ -140,15 +140,15 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         return filter;
     }
     
-    private void updateFilterCharts(Filter filter) {
+    private void updateFilterCharts(Filter filter, int fragmentSize, double sampleRate) {
         List<Double> impulseResponse = filter.getImpulseResponse();
         updateIrChart(impulseResponse);
         
         List<Double> frequencyResponse = filter.getFrequencyResponse();
-        updateFrChart(fr1Chart, frequencyResponse, filter.getStep());
+        updateFrChart(fr1Chart, frequencyResponse, filter.getStep(), fragmentSize, sampleRate);
         
         List<Double> logFrequencyResponse = filter.getLogFrequencyResponse();
-        updateFrChart(fr2Chart, logFrequencyResponse, filter.getStep());
+        updateFrChart(fr2Chart, logFrequencyResponse, filter.getStep(), fragmentSize, sampleRate);
     }
     
     private void updateIrChart(List<Double> signal) {
@@ -159,10 +159,10 @@ public class Lab02SupportingJFrame extends javax.swing.JFrame {
         Common.updateChart(irChart, x, signal, seriesName);
     }
     
-    private void updateFrChart(XYChart chart, List<Double> signal, double step) {
+    private void updateFrChart(XYChart chart, List<Double> signal, double step, int fragmentSize, double sampleRate) {
         List<Double> x = new ArrayList<>();
         for (int i = 0, ei = signal.size() / 2; i < ei; i++) {
-            double value = i * step;
+            double value = i * step * sampleRate / fragmentSize;
             x.add(value);
         }
         Common.updateChart(chart, x, signal.subList(0, signal.size() / 2), seriesName);

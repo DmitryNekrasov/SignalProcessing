@@ -15,7 +15,7 @@ public class SignalProcessing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        startLab04();
+        startLab02();
     }
     
     private static void startLab02() {
