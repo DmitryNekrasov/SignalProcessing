@@ -31,7 +31,8 @@ public class SignalFromFile {
     }
     
     public List<Double> getSignal() {
-        return signal;
+        int highestOneBit = Integer.highestOneBit(signal.size());
+        return signal.subList(0, highestOneBit);
     }
     
     private void readSignal(){
