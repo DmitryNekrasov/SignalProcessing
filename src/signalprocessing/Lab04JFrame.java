@@ -82,7 +82,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
 
         signalTypeLabel.setText("Тип сигнала:");
 
-        signalTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Прямоугольный", "Пилообразный", "Треугольный" }));
+        signalTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Прямоугольный", "Пилообразный", "Треугольный", "Кардиосигнал", "Реосигнал", "Велосигнал" }));
         signalTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signalTypeComboBoxActionPerformed(evt);
@@ -179,7 +179,6 @@ public class Lab04JFrame extends javax.swing.JFrame {
                             .addComponent(signalTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(TTextField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,13 +190,14 @@ public class Lab04JFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(NTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                                    .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addComponent(tauTextField, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(transformLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(transformComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(transformComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(filterCheckBox)
                                 .addGap(29, 29, 29)
@@ -270,30 +270,56 @@ public class Lab04JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_signalTypeComboBoxActionPerformed
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        double A = Double.parseDouble(ATextField.getText());
-        double T = Double.parseDouble(TTextField.getText());
-        int N = Integer.parseInt(NTextField.getText());
         
-        StandartSignal standartSignal;
+        List<Double> signal;
+        double sampleRate;
         
-        switch (signalTypeComboBox.getSelectedIndex()) {
-            case 0: {
-                double tau = Double.parseDouble(tauTextField.getText());
-                standartSignal = new RectSignal(A, T, N, tau);
-                break;
+        int index = signalTypeComboBox.getSelectedIndex();
+        if (isStandartSignal(index)) {
+            StandartSignal standartSignal;
+        
+            double A = Double.parseDouble(ATextField.getText());
+            double T = Double.parseDouble(TTextField.getText());
+            int N = Integer.parseInt(NTextField.getText());
+            
+            switch (signalTypeComboBox.getSelectedIndex()) {
+                case 0: {
+                    double tau = Double.parseDouble(tauTextField.getText());
+                    standartSignal = new RectSignal(A, T, N, tau);
+                    break;
+                }
+
+                case 1:
+                    standartSignal = new SawSignal(A, T, N);
+                    break;
+
+                default:
+                    standartSignal = new TriangleSignal(A, T, N);
+                    break;
             }
-                
-            case 1:
-                standartSignal = new SawSignal(A, T, N);
-                break;
-                
-            default:
-                standartSignal = new TriangleSignal(A, T, N);
-                break;
+            
+            signal = standartSignal.getSignal();
+            sampleRate = N / T;
+        } else {
+            SignalFromFile signalFromFile;
+            switch (index) {
+                case 3:
+                    signalFromFile = new SignalFromFile("signals/Cardio.txt");
+                    break;
+                    
+                case 4:
+                    signalFromFile = new SignalFromFile("signals/Reo.txt");
+                    break;
+                    
+                default:
+                    signalFromFile = new SignalFromFile("signals/Velo.txt");
+            }
+            
+            signal = signalFromFile.getSignal();
+            sampleRate = 1;
         }
         
-        List<Double> signal = standartSignal.getSignal();
-        Common.updateSignalChart(signalChart, signal, N / T, seriesName);
+        Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
         boolean isWalsh = transformComboBox.getSelectedIndex() == 0;
         Adamar adamar = new Adamar(signal.size(), isWalsh);
@@ -314,7 +340,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
         
         RectTransform inverseTransform = new RectTransform(transform.getTransformation(), adamar, true);
         List<Double> result = inverseTransform.getTransformation();
-        Common.updateSignalChart(resultChart, result, N / T, seriesName);
+        Common.updateSignalChart(resultChart, result, sampleRate, seriesName);
         
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
@@ -323,6 +349,10 @@ public class Lab04JFrame extends javax.swing.JFrame {
         setFilterEnabled(filterCheckBox.isSelected());
     }//GEN-LAST:event_filterCheckBoxActionPerformed
 
+    private boolean isStandartSignal(int index) {
+        return index < 3;
+    }
+    
     private void setTauEnabled(boolean value) {
         tauLabel.setEnabled(value);
         tauTextField.setEditable(value);
