@@ -7,6 +7,7 @@ package signalprocessing;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.List;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
@@ -332,11 +333,18 @@ public class Lab04JFrame extends javax.swing.JFrame {
             transform.filterMinMax(min, max);
         }
         
-        List<Double> amplitude = transform.getAmplitude();
-        Common.updateSignalChart(amplitudeChart, amplitude, 1, seriesName);
-        
-        List<Double> phase = transform.getPhase();
-        Common.updateSignalChart(phaseChart , phase, 1, seriesName);
+        if (isWalsh) {
+            List<Double> amplitude = transform.getAmplitude();
+            Common.updateSignalChart(amplitudeChart, amplitude, 1, seriesName);
+
+            List<Double> phase = transform.getPhase();
+            Common.updateSignalChart(phaseChart , phase, 1, seriesName);
+        } else {
+            List<Double> tmp = new ArrayList<>();
+            tmp.add(0.0);
+            Common.updateChart(amplitudeChart, tmp, tmp, seriesName);
+            Common.updateChart(phaseChart, tmp, tmp, seriesName);
+        }
         
         RectTransform inverseTransform = new RectTransform(transform.getTransformation(), adamar, true);
         List<Double> result = inverseTransform.getTransformation();
