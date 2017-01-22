@@ -7,6 +7,7 @@ package signalprocessing;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.List;
 import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.XYChart;
 
@@ -72,6 +73,11 @@ public class Lab03JFrame extends javax.swing.JFrame {
         });
 
         startButton.setText("Старт");
+        startButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startButtonActionPerformed(evt);
+            }
+        });
 
         NLabel.setText("N:");
 
@@ -127,6 +133,19 @@ public class Lab03JFrame extends javax.swing.JFrame {
     private void filterComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterComboBoxActionPerformed
         setEEnabled(filterComboBox.getSelectedIndex() != 0);
     }//GEN-LAST:event_filterComboBoxActionPerformed
+
+    private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+        int n = Integer.parseInt(NTextField.getText());
+        final int m = 1000;
+        List<Double> fr = null;
+        int index = filterComboBox.getSelectedIndex();
+        if (index == 0) {
+            fr = IIRFilter.getButterworthFR(n, m);
+        }
+        
+        Common.updateSignalChart(frChart, fr, m / Math.PI, seriesName);
+        repaint();
+    }//GEN-LAST:event_startButtonActionPerformed
 
     @Override
     public void paint(Graphics g) {
