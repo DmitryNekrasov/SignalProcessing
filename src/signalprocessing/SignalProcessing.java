@@ -26,6 +26,7 @@ public class SignalProcessing {
     
     private static void startLab03() {
         Lab03JFrame frame = new Lab03JFrame();
+        frame.setTitle("ЛР №3. Проектирование линейных фильтров. БИХ – фильтры.");
         frame.setVisible(true);
     }
     

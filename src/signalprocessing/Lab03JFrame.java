@@ -137,13 +137,17 @@ public class Lab03JFrame extends javax.swing.JFrame {
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         int n = Integer.parseInt(NTextField.getText());
         final int m = 1000;
-        List<Double> fr = null;
+        List<Double> fr;
         int index = filterComboBox.getSelectedIndex();
         if (index == 0) {
             fr = IIRFilter.getButterworthFR(n, m);
         } else {
             double e = Double.parseDouble(eTextField.getText());
-            fr = IIRFilter.getChebyshevOneFR(n, m, e);
+            if (index == 1) {
+                fr = IIRFilter.getChebyshevOneFR(n, m, e);
+            } else {
+                fr = IIRFilter.getChebyshevTwoFR(n, m, e);
+            }
         }
         
         Common.updateSignalChart(frChart, fr, fr.size() / Math.PI, seriesName);
