@@ -141,9 +141,12 @@ public class Lab03JFrame extends javax.swing.JFrame {
         int index = filterComboBox.getSelectedIndex();
         if (index == 0) {
             fr = IIRFilter.getButterworthFR(n, m);
+        } else {
+            double e = Double.parseDouble(eTextField.getText());
+            fr = IIRFilter.getChebyshevOneFR(n, m, e);
         }
         
-        Common.updateSignalChart(frChart, fr, m / Math.PI, seriesName);
+        Common.updateSignalChart(frChart, fr, fr.size() / Math.PI, seriesName);
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 
