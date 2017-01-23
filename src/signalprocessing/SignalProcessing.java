@@ -15,7 +15,7 @@ public class SignalProcessing {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        startLab03();
+        startLab05();
     }
     
     private static void startLab02() {
@@ -33,6 +33,11 @@ public class SignalProcessing {
     private static void startLab04() {
         Lab04JFrame frame = new Lab04JFrame();
         frame.setTitle("ЛР №4. Преобразование Уолша и Адамара и их свойства.");
+        frame.setVisible(true);
+    }
+    
+    private static void startLab05() {
+        Lab05JFrame frame = new Lab05JFrame();
         frame.setVisible(true);
     }
     
