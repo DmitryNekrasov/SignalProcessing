@@ -19,7 +19,7 @@ public class Lab05JFrame extends javax.swing.JFrame {
 
     final String seriesName = "y(x)";
     
-    XYChart signalChart;
+    XYChart signalChart, transformChart, resultChart;
     
     /**
      * Creates new form Lab05JFrame
@@ -28,6 +28,8 @@ public class Lab05JFrame extends javax.swing.JFrame {
         initComponents();
         
         signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        transformChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
     }
 
     /**
@@ -43,6 +45,12 @@ public class Lab05JFrame extends javax.swing.JFrame {
         signalTypeLabel = new javax.swing.JLabel();
         signalTypeComboBox = new javax.swing.JComboBox<>();
         startButton = new javax.swing.JButton();
+        transformPanel = new javax.swing.JPanel();
+        resultPanel = new javax.swing.JPanel();
+        waveletLabel = new javax.swing.JLabel();
+        waveletComboBox = new javax.swing.JComboBox<>();
+        NLabel = new javax.swing.JLabel();
+        NTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +76,36 @@ public class Lab05JFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout transformPanelLayout = new javax.swing.GroupLayout(transformPanel);
+        transformPanel.setLayout(transformPanelLayout);
+        transformPanelLayout.setHorizontalGroup(
+            transformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        transformPanelLayout.setVerticalGroup(
+            transformPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout resultPanelLayout = new javax.swing.GroupLayout(resultPanel);
+        resultPanel.setLayout(resultPanelLayout);
+        resultPanelLayout.setHorizontalGroup(
+            resultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        resultPanelLayout.setVerticalGroup(
+            resultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        waveletLabel.setText("Вейвлет:");
+
+        waveletComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Хаара", "Добеши d4" }));
+
+        NLabel.setText("N:");
+
+        NTextField.setText("16");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,21 +117,39 @@ public class Lab05JFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(signalTypeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(waveletLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(waveletComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(NLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(startButton))
-                .addContainerGap(825, Short.MAX_VALUE))
+                .addContainerGap(574, Short.MAX_VALUE))
+            .addComponent(transformPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(signalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(transformPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signalTypeLabel)
-                    .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(waveletLabel)
+                    .addComponent(waveletComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NLabel)
+                    .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(startButton)
-                .addGap(0, 270, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +176,8 @@ public class Lab05JFrame extends javax.swing.JFrame {
         
         Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
+        int N = Integer.parseInt(NTextField.getText());
+        
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 
@@ -129,12 +187,24 @@ public class Lab05JFrame extends javax.swing.JFrame {
         
         Graphics2D signalPanelGraphics = (Graphics2D) signalPanel.getGraphics();
         signalChart.paint(signalPanelGraphics, signalPanel.getWidth(), signalPanel.getHeight());
+        
+        Graphics2D transformPanelGraphics = (Graphics2D) transformPanel.getGraphics();
+        transformChart.paint(transformPanelGraphics, transformPanel.getWidth(), transformPanel.getHeight());
+        
+        Graphics2D resultPanelGraphics = (Graphics2D) resultPanel.getGraphics();
+        resultChart.paint(resultPanelGraphics, resultPanel.getWidth(), resultPanel.getHeight());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel NLabel;
+    private javax.swing.JTextField NTextField;
+    private javax.swing.JPanel resultPanel;
     private javax.swing.JPanel signalPanel;
     private javax.swing.JComboBox<String> signalTypeComboBox;
     private javax.swing.JLabel signalTypeLabel;
     private javax.swing.JButton startButton;
+    private javax.swing.JPanel transformPanel;
+    private javax.swing.JComboBox<String> waveletComboBox;
+    private javax.swing.JLabel waveletLabel;
     // End of variables declaration//GEN-END:variables
 }
