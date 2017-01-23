@@ -176,10 +176,13 @@ public class Lab05JFrame extends javax.swing.JFrame {
         
         Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
-        int N = Integer.parseInt(NTextField.getText());
+        List<Double> transformResult = Wavelet.getHaarTransform(signal);
         
-        double[][] matrix = Wavelet.getHaarMatrix(N);
-        Common.printMatrix(matrix);
+        Common.updateSignalChart(transformChart, transformResult, 1, seriesName);
+        
+        List<Double> inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
+        
+        Common.updateSignalChart(resultChart, inverseTransformResult, sampleRate, seriesName);
         
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
