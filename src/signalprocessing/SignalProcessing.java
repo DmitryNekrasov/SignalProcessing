@@ -38,6 +38,7 @@ public class SignalProcessing {
     
     private static void startLab05() {
         Lab05JFrame frame = new Lab05JFrame();
+        frame.setTitle("ЛР №5. Вейвлет-преобразование.");
         frame.setVisible(true);
     }
     

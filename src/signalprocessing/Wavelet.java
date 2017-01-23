@@ -57,6 +57,14 @@ public class Wavelet {
         }
         return result;
     }
+     
+    public static List<Double> filterMinMax(List<Double> signal, int min, int max) {
+        List<Double> result = new ArrayList<>(signal);
+        for (int i = min, ei = Math.min(max, signal.size()); i < ei; i++) {
+            result.set(i, 0.0);
+        }
+        return result;
+    }
     
     private static void multiply(double[][] matrix, List<Double> vector) {
         int n = vector.size();
@@ -100,15 +108,15 @@ public class Wavelet {
         double c1 = getC1();
         double c2 = getC2();
         double c3 = getC3();
-        for (int i = 0; i < n; i += 2) {
-            a[i][i] = c0;
-            a[i][i + 1] = c1;
-            a[i][(i + 2) % n] = c2;
-            a[i][(i + 3) % n] = c3;
-            a[i + 1][i] = c3;
-            a[i + 1][i + 1] = -c2;
-            a[i + 1][(i + 2) % n] = c1;
-            a[i + 1][(i + 3) % n] = -c0;
+        for (int i = 0, ei = n / 2; i < ei; i++) {
+            a[i][i * 2] = c0;
+            a[i][i * 2 + 1] = c1;
+            a[i][(i * 2 + 2) % n] = c2;
+            a[i][(i * 2 + 3) % n] = c3;
+            a[i + ei][i * 2] = c3;
+            a[i + ei][i * 2 + 1] = -c2;
+            a[i + ei][(i * 2 + 2) % n] = c1;
+            a[i + ei][(i * 2 + 3) % n] = -c0;
         }
         return a;
     }

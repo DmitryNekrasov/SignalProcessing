@@ -49,8 +49,10 @@ public class Lab05JFrame extends javax.swing.JFrame {
         resultPanel = new javax.swing.JPanel();
         waveletLabel = new javax.swing.JLabel();
         waveletComboBox = new javax.swing.JComboBox<>();
-        NLabel = new javax.swing.JLabel();
-        NTextField = new javax.swing.JTextField();
+        minLabel = new javax.swing.JLabel();
+        minTextField = new javax.swing.JTextField();
+        maxLabel = new javax.swing.JLabel();
+        maxTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,9 +104,13 @@ public class Lab05JFrame extends javax.swing.JFrame {
 
         waveletComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Хаара", "Добеши d4" }));
 
-        NLabel.setText("N:");
+        minLabel.setText("min:");
 
-        NTextField.setText("16");
+        minTextField.setText("64");
+
+        maxLabel.setText("max:");
+
+        maxTextField.setText("2048");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,11 +129,15 @@ public class Lab05JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(waveletComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(NLabel)
+                        .addComponent(minLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(maxLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(startButton))
-                .addContainerGap(574, Short.MAX_VALUE))
+                .addContainerGap(469, Short.MAX_VALUE))
             .addComponent(transformPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -145,8 +155,10 @@ public class Lab05JFrame extends javax.swing.JFrame {
                     .addComponent(signalTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(waveletLabel)
                     .addComponent(waveletComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NLabel)
-                    .addComponent(NTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(minLabel)
+                    .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxLabel)
+                    .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(startButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -175,14 +187,19 @@ public class Lab05JFrame extends javax.swing.JFrame {
         List<Double> signal = signalFromFile.getSignal();
         Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
+        int minFilter = Integer.parseInt(minTextField.getText());
+        int maxFilter = Integer.parseInt(maxTextField.getText());
+        
         List<Double> transformResult;
         List<Double> inverseTransformResult;
         
         if (waveletComboBox.getSelectedIndex() == 0) {
             transformResult = Wavelet.getHaarTransform(signal);
+            transformResult = Wavelet.filterMinMax(transformResult, minFilter, maxFilter);
             inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
         } else {
             transformResult = Wavelet.getDaubechiesTransform(signal);
+            transformResult = Wavelet.filterMinMax(transformResult, minFilter, maxFilter);
             inverseTransformResult = Wavelet.getDaubechiesInverseTransform(transformResult);
         }
         
@@ -207,8 +224,10 @@ public class Lab05JFrame extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel NLabel;
-    private javax.swing.JTextField NTextField;
+    private javax.swing.JLabel maxLabel;
+    private javax.swing.JTextField maxTextField;
+    private javax.swing.JLabel minLabel;
+    private javax.swing.JTextField minTextField;
     private javax.swing.JPanel resultPanel;
     private javax.swing.JPanel signalPanel;
     private javax.swing.JComboBox<String> signalTypeComboBox;
