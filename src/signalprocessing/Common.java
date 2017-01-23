@@ -6,6 +6,7 @@
 package signalprocessing;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.knowm.xchart.XYChart;
 
@@ -29,6 +30,12 @@ public class Common {
     
     public static void updateChart(XYChart chart, List<Double> x, List<Double> y, String seriesName) {
         chart.updateXYSeries(seriesName, x, y, null);
+    }
+    
+    public static void printMatrix(double[][] matrix) {
+        for (int i = 0, ei = matrix.length; i < ei; i++) {
+            System.out.println(Arrays.toString(matrix[i]));
+        }
     }
     
 }

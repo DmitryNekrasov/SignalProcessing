@@ -178,6 +178,9 @@ public class Lab05JFrame extends javax.swing.JFrame {
         
         int N = Integer.parseInt(NTextField.getText());
         
+        double[][] matrix = Wavelet.getHaarMatrix(N);
+        Common.printMatrix(matrix);
+        
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 

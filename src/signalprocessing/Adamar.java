@@ -77,11 +77,4 @@ public class Adamar {
     private double log2(double value) {
         return Math.log(value) / Math.log(2);
     }
-    
-    private void printW() {
-        System.err.println(W.length + " " + W[0].length);
-        for (int i = 0; i < N; i++) {
-            System.out.println(Arrays.toString(W[i]));
-        }
-    }
 }
