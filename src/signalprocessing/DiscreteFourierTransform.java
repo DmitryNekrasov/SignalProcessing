@@ -5,7 +5,6 @@
  */
 package signalprocessing;
 
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.math3.complex.Complex;
 

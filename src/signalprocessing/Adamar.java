@@ -5,8 +5,6 @@
  */
 package signalprocessing;
 
-import java.util.Arrays;
-
 /**
  *
  * @author nekrasov
