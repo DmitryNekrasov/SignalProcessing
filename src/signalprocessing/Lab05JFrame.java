@@ -173,15 +173,20 @@ public class Lab05JFrame extends javax.swing.JFrame {
         }
         
         List<Double> signal = signalFromFile.getSignal();
-        
         Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);
         
-        List<Double> transformResult = Wavelet.getHaarTransform(signal);
+        List<Double> transformResult;
+        List<Double> inverseTransformResult;
+        
+        if (waveletComboBox.getSelectedIndex() == 0) {
+            transformResult = Wavelet.getHaarTransform(signal);
+            inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
+        } else {
+            transformResult = Wavelet.getDaubechiesTransform(signal);
+            inverseTransformResult = Wavelet.getDaubechiesInverseTransform(transformResult);
+        }
         
         Common.updateSignalChart(transformChart, transformResult, 1, seriesName);
-        
-        List<Double> inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
-        
         Common.updateSignalChart(resultChart, inverseTransformResult, sampleRate, seriesName);
         
         repaint();

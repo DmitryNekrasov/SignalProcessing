@@ -22,7 +22,6 @@ public class Wavelet {
             multiply(matrix, result.subList(0, n));
             n /= 2;
         }
-        
         return result;
     }
     
@@ -33,6 +32,52 @@ public class Wavelet {
             double[][] matrix = getTransformMatrix(getHaarMatrix(n));
             multiply(matrix, result.subList(0, n));
             n *= 2;
+        }
+        return result;
+    }
+    
+    public static List<Double> getDaubechiesTransform(List<Double> signal) {
+        List<Double> result = new ArrayList<>(signal);
+        int n = signal.size();
+        while (n >= 4) {
+            double[][] matrix = getDaubechiesMatrix(n);
+            multiply(matrix, result.subList(0, n));
+            n /= 2;
+        }
+        return result;
+    }
+    
+    public static List<Double> getDaubechiesInverseTransform(List<Double> signal) {
+        List<Double> result = new ArrayList<>(signal);
+        int n = 4;
+        while (n <= signal.size()) {
+            double[][] matrix = getTransformMatrix(getDaubechiesMatrix(n));
+            multiply(matrix, result.subList(0, n));
+            n *= 2;
+        }
+        return result;
+    }
+    
+    private static void multiply(double[][] matrix, List<Double> vector) {
+        int n = vector.size();
+        double[] result = new double[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                result[i] += matrix[i][j] * vector.get(j);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            vector.set(i, result[i]);
+        }
+    }
+    
+    private static double[][] getTransformMatrix(double[][] matrix) {
+        int n = matrix.length;
+        double[][] result = new double[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                result[i][j] = matrix[j][i];
+            }
         }
         return result;
     }
@@ -49,27 +94,38 @@ public class Wavelet {
         return a;
     }
     
-    private static double[][] getTransformMatrix(double[][] matrix) {
-        int n = matrix.length;
-        double[][] result = new double[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                result[i][j] = matrix[j][i];
-            }
+    private static double[][] getDaubechiesMatrix(int n) {
+        double[][] a = new double[n][n];
+        double c0 = getC0();
+        double c1 = getC1();
+        double c2 = getC2();
+        double c3 = getC3();
+        for (int i = 0; i < n; i += 2) {
+            a[i][i] = c0;
+            a[i][i + 1] = c1;
+            a[i][(i + 2) % n] = c2;
+            a[i][(i + 3) % n] = c3;
+            a[i + 1][i] = c3;
+            a[i + 1][i + 1] = -c2;
+            a[i + 1][(i + 2) % n] = c1;
+            a[i + 1][(i + 3) % n] = -c0;
         }
-        return result;
+        return a;
     }
     
-    private static void multiply(double[][] matrix, List<Double> vector) {
-        int n = vector.size();
-        double[] result = new double[n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                result[i] += matrix[i][j] * vector.get(j);
-            }
-        }
-        for (int i = 0; i < n; i++) {
-            vector.set(i, result[i]);
-        }
+    private static double getC0() {
+        return (1.0 + Math.sqrt(3.0)) / (4.0 * Math.sqrt(2.0));
+    }
+    
+    private static double getC1() {
+        return (3.0 + Math.sqrt(3.0)) / (4.0 * Math.sqrt(2.0));
+    }
+    
+    private static double getC2() {
+        return (3.0 - Math.sqrt(3.0)) / (4.0 * Math.sqrt(2.0));
+    }
+    
+    private static double getC3() {
+        return (1.0 - Math.sqrt(3.0)) / (4.0 * Math.sqrt(2.0));
     }
 }
