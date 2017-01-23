@@ -317,7 +317,7 @@ public class Lab04JFrame extends javax.swing.JFrame {
             }
             
             signal = signalFromFile.getSignal();
-            sampleRate = 1;
+            sampleRate = 360;
         }
         
         Common.updateSignalChart(signalChart, signal, sampleRate, seriesName);

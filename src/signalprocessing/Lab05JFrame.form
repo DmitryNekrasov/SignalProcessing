@@ -36,6 +36,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="waveletComboBox" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="filterCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="minLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="minTextField" min="-2" pref="50" max="-2" attributes="0"/>
@@ -46,7 +48,7 @@
                   </Group>
                   <Component id="startButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="469" max="32767" attributes="0"/>
+              <EmptySpace pref="364" max="32767" attributes="0"/>
           </Group>
           <Component id="transformPanel" alignment="0" max="32767" attributes="0"/>
           <Component id="resultPanel" alignment="0" max="32767" attributes="0"/>
@@ -70,6 +72,7 @@
                   <Component id="minTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="maxLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="maxTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="filterCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="startButton" min="-2" max="-2" attributes="0"/>
@@ -188,6 +191,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="2048"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="filterCheckBox">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x424;&#x438;&#x43b;&#x44c;&#x442;&#x440;&#x430;&#x446;&#x438;&#x44f;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterCheckBoxActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

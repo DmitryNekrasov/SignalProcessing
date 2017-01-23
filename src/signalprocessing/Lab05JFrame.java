@@ -30,6 +30,8 @@ public class Lab05JFrame extends javax.swing.JFrame {
         signalChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         transformChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
         resultChart = QuickChart.getChart("", "", "", seriesName, new double[1], new double[1]);
+        
+        setFilterEnabled(false);
     }
 
     /**
@@ -53,6 +55,7 @@ public class Lab05JFrame extends javax.swing.JFrame {
         minTextField = new javax.swing.JTextField();
         maxLabel = new javax.swing.JLabel();
         maxTextField = new javax.swing.JTextField();
+        filterCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +115,13 @@ public class Lab05JFrame extends javax.swing.JFrame {
 
         maxTextField.setText("2048");
 
+        filterCheckBox.setText("Фильтрация");
+        filterCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,6 +139,8 @@ public class Lab05JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(waveletComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(filterCheckBox)
+                        .addGap(18, 18, 18)
                         .addComponent(minLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,7 +149,7 @@ public class Lab05JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(startButton))
-                .addContainerGap(469, Short.MAX_VALUE))
+                .addContainerGap(364, Short.MAX_VALUE))
             .addComponent(transformPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(resultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -158,7 +170,8 @@ public class Lab05JFrame extends javax.swing.JFrame {
                     .addComponent(minLabel)
                     .addComponent(minTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(maxLabel)
-                    .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(filterCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(startButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -168,10 +181,10 @@ public class Lab05JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
-        int index = signalTypeComboBox.getSelectedIndex();
+        int signalTypeindex = signalTypeComboBox.getSelectedIndex();
         SignalFromFile signalFromFile;
-        double sampleRate = 1;
-        switch (index) {
+        double sampleRate = 360;
+        switch (signalTypeindex) {
             case 0:
                 signalFromFile = new SignalFromFile("signals/Cardio.txt");
                 break;
@@ -193,13 +206,20 @@ public class Lab05JFrame extends javax.swing.JFrame {
         List<Double> transformResult;
         List<Double> inverseTransformResult;
         
-        if (waveletComboBox.getSelectedIndex() == 0) {
+        int waveletIndex = waveletComboBox.getSelectedIndex();
+        if (waveletIndex == 0) {
             transformResult = Wavelet.getHaarTransform(signal);
-            transformResult = Wavelet.filterMinMax(transformResult, minFilter, maxFilter);
-            inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
         } else {
             transformResult = Wavelet.getDaubechiesTransform(signal);
+        }
+        
+        if (filterCheckBox.isSelected()) {
             transformResult = Wavelet.filterMinMax(transformResult, minFilter, maxFilter);
+        }
+        
+        if (waveletIndex == 0) {
+            inverseTransformResult = Wavelet.getHaarInverseTransform(transformResult);
+        } else {
             inverseTransformResult = Wavelet.getDaubechiesInverseTransform(transformResult);
         }
         
@@ -209,6 +229,17 @@ public class Lab05JFrame extends javax.swing.JFrame {
         repaint();
     }//GEN-LAST:event_startButtonActionPerformed
 
+    private void filterCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCheckBoxActionPerformed
+        setFilterEnabled(filterCheckBox.isSelected());
+    }//GEN-LAST:event_filterCheckBoxActionPerformed
+
+    private void setFilterEnabled(boolean value) {
+        minLabel.setEnabled(value);
+        minTextField.setEditable(value);
+        maxLabel.setEnabled(value);
+        maxTextField.setEditable(value);
+    }
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -224,6 +255,7 @@ public class Lab05JFrame extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox filterCheckBox;
     private javax.swing.JLabel maxLabel;
     private javax.swing.JTextField maxTextField;
     private javax.swing.JLabel minLabel;
